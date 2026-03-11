@@ -3,899 +3,1083 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>慢沖 — 不心悸，只對生命的悸動</title>
-  <meta name="description" content="精品手沖咖啡外送，大安區・信義區免費外送，世界莊園單品豆，咖啡師親手沖製。" />
+  <title>慢沖 Lentement — 不心悸，只對生命的悸動</title>
+  <meta name="description" content="法式海景手沖咖啡，大安區・信義區免費外送。世界莊園單品豆，咖啡師親手沖製。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Noto+Serif+TC:wght@300;400;500&display=swap" rel="stylesheet" />
+
   <style>
-    /* ── TOKENS ─────────────────────────────────── */
-    :root {
-      --ink:         #120c05;
-      --espresso:    #1e1108;
-      --roast:       #3a2010;
-      --warm:        #6b3a1f;
-      --caramel:     #a0623a;
-      --gold:        #c8963e;
-      --gold-hi:     #e0b870;
-      --cream:       #faf6f0;
-      --parchment:   #f0e8da;
-      --latte:       #e0cebc;
-      --muted:       #8a6a50;
-      --ice-dark:    #08111a;
-      --ice-mid:     #0f1e2a;
-      --ice-blue:    #5bc8e8;
-      --ice-purple:  #b87ee8;
-      --ice-green:   #78d8a0;
-      --serif:       'Playfair Display', 'Noto Serif TC', Georgia, serif;
-      --sans:        'Inter', '微軟正黑體', sans-serif;
-      --r-sm:   8px;
-      --r-md:  14px;
-      --r-lg:  20px;
-      --shadow-card: 0 2px 20px rgba(18,12,5,.08), 0 1px 4px rgba(18,12,5,.04);
-      --shadow-hover: 0 12px 40px rgba(18,12,5,.14), 0 4px 12px rgba(18,12,5,.06);
-    }
+/* ══════════════════════════════════════════════
+   TOKENS
+══════════════════════════════════════════════ */
+:root {
+  --deep:      #09182a;
+  --ocean:     #14385a;
+  --tide:      #1e5a80;
+  --azure:     #3a88b0;
+  --seafoam:   #6ab0c8;
+  --horizon:   #c0d8e8;
+  --mist:      #e0edf4;
 
-    /* ── RESET ───────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; }
-    body {
-      font-family: var(--sans);
-      background: var(--cream);
-      color: var(--ink);
-      line-height: 1.75;
-      -webkit-font-smoothing: antialiased;
-    }
-    img { display: block; max-width: 100%; }
-    button { font-family: inherit; cursor: pointer; }
-    a { text-decoration: none; }
+  --soleil:    #c8940c;
+  --gold:      #d4a840;
+  --gold-hi:   #e8c878;
+  --terre:     #b86438;
+  --sable:     #e8d5a0;
+  --lin:       #f0e8d4;
+  --pierre:    #e8dece;
+  --blanc:     #fdfaf5;
 
-    /* ── SCROLL REVEAL ───────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .65s ease, transform .65s ease;
-    }
-    .reveal.visible { opacity: 1; transform: none; }
+  --lavande:   #9080a8;
+  --sauge:     #6a8860;
 
-    /* ── NAV ─────────────────────────────────────── */
-    .nav {
-      position: sticky; top: 0; z-index: 900;
-      height: 64px;
-      background: rgba(18,12,5,.96);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(200,150,62,.12);
-      display: flex; align-items: center;
-      padding: 0 max(1.5rem, calc(50vw - 560px));
-      gap: 2rem;
-    }
-    .nav-logo {
-      font-family: var(--serif);
-      font-size: 1.25rem; font-weight: 500;
-      color: var(--gold);
-      letter-spacing: .2em;
-      margin-right: auto;
-    }
-    .nav-logo span { font-style: italic; font-weight: 400; }
-    .nav-links {
-      display: flex; gap: 1.6rem; align-items: center;
-    }
-    .nav-links a {
-      font-size: .78rem; font-weight: 400;
-      letter-spacing: .1em; text-transform: uppercase;
-      color: rgba(250,246,240,.45);
-      transition: color .2s;
-    }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-cart {
-      display: flex; align-items: center; gap: .5rem;
-      background: var(--gold);
-      border: none; border-radius: 40px;
-      padding: .4rem 1.1rem;
-      font-size: .8rem; font-weight: 600;
-      color: var(--espresso);
-      letter-spacing: .06em;
-      transition: background .2s, transform .15s;
-    }
-    .nav-cart:hover { background: var(--gold-hi); transform: scale(1.03); }
-    .cart-badge {
-      background: var(--espresso); color: var(--gold);
-      border-radius: 50%; width: 20px; height: 20px;
-      font-size: .68rem; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-    }
+  --encre:     #181410;
+  --bois:      #5a3818;
+  --muted:     #8a7050;
 
-    /* ── HERO ─────────────────────────────────────── */
-    .hero {
-      background: var(--espresso);
-      min-height: 92vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      padding: 6rem max(1.5rem, calc(50vw - 480px));
-      position: relative; overflow: hidden;
-    }
-    .hero-grain {
-      position: absolute; inset: 0; pointer-events: none;
-      background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: .04; mix-blend-mode: overlay;
-    }
-    .hero-glow {
-      position: absolute; inset: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(200,150,62,.1) 0%, transparent 65%),
-        radial-gradient(ellipse 60% 40% at 20% 30%, rgba(160,98,58,.06) 0%, transparent 60%);
-    }
-    .hero-eyebrow {
-      font-family: var(--sans);
-      font-size: .72rem; font-weight: 500;
-      letter-spacing: .35em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 1.6rem;
-      opacity: .9;
-    }
-    .hero h1 {
-      font-family: var(--serif);
-      font-size: clamp(2.6rem, 6vw, 4.2rem);
-      font-weight: 400; line-height: 1.25;
-      color: var(--cream);
-      letter-spacing: .04em;
-      margin-bottom: .6rem;
-    }
-    .hero h1 em {
-      font-style: italic; color: var(--gold-hi);
-    }
-    .hero-rule {
-      width: 40px; height: 1px;
-      background: var(--gold); opacity: .4;
-      margin: 1.8rem auto;
-    }
-    .hero-tagline {
-      font-size: clamp(.95rem, 2vw, 1.2rem);
-      font-weight: 300; line-height: 2;
-      color: rgba(224,206,188,.7);
-      max-width: 500px; margin-bottom: 2.5rem;
-    }
-    .hero-badges {
-      display: flex; flex-wrap: wrap; gap: .75rem;
-      justify-content: center; margin-bottom: 2.8rem;
-    }
-    .badge {
-      display: inline-flex; align-items: center; gap: .4rem;
-      border: 1px solid rgba(200,150,62,.3); border-radius: 40px;
-      padding: .4rem 1.1rem;
-      font-size: .78rem; font-weight: 400;
-      color: rgba(224,206,188,.75);
-      letter-spacing: .06em;
-      transition: border-color .2s, color .2s;
-    }
-    .badge:hover { border-color: var(--gold); color: var(--gold-hi); }
-    .badge.primary {
-      background: var(--gold); border-color: var(--gold);
-      color: var(--espresso); font-weight: 600;
-    }
-    .badge.primary:hover { background: var(--gold-hi); }
-    .hero-footnote {
-      font-size: .76rem; font-weight: 300;
-      color: rgba(200,150,62,.4); letter-spacing: .1em;
-    }
-    .hero-scroll-hint {
-      position: absolute; bottom: 2.5rem; left: 50%;
-      transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: .5rem;
-      color: rgba(200,150,62,.3); font-size: .68rem; letter-spacing: .15em;
-    }
-    .scroll-line {
-      width: 1px; height: 32px;
-      background: linear-gradient(to bottom, rgba(200,150,62,.3), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
-    }
-    @keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:.8} }
+  --serif:     'Cormorant Garamond','Noto Serif TC',Georgia,serif;
+  --sans:      'Jost','Noto Serif TC',sans-serif;
 
-    /* ── SECTION WRAPPERS ─────────────────────────── */
-    .section {
-      padding: 5rem max(1.5rem, calc(50vw - 560px));
-    }
-    .section-dark { background: var(--espresso); }
-    .section-parchment { background: var(--parchment); }
+  --ease-out:  cubic-bezier(.22,1,.36,1);
+  --ease-spring: cubic-bezier(.34,1.56,.64,1);
+}
 
-    .eyebrow {
-      font-size: .7rem; font-weight: 500;
-      letter-spacing: .3em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: .6rem;
-    }
-    .section-heading {
-      font-family: var(--serif);
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-      font-weight: 400; line-height: 1.35;
-      letter-spacing: .04em;
-    }
-    .section-heading em { font-style: italic; color: var(--gold-hi); }
-    .section-sub {
-      font-size: .88rem; font-weight: 300;
-      color: var(--muted); margin-top: .5rem; line-height: 1.8;
-    }
-    .section-header { text-align: center; margin-bottom: 3rem; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--blanc);
+  color: var(--encre);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+button { font-family: inherit; cursor: pointer; }
+a { text-decoration: none; color: inherit; }
 
-    /* ── TODAY HALF PRICE ─────────────────────────── */
-    #today {
-      background: linear-gradient(160deg, #1a0d04 0%, #2a1508 60%, #1a0d04 100%);
-      border-top: 1px solid rgba(200,150,62,.1);
-      border-bottom: 1px solid rgba(200,150,62,.1);
-    }
-    #today .eyebrow { text-align: center; }
-    #today .section-heading { color: var(--cream); text-align: center; display: block; }
-    #today .section-sub { text-align: center; color: rgba(200,150,62,.45); }
-    .hp-timer {
-      text-align: center;
-      font-size: .78rem; letter-spacing: .1em;
-      color: rgba(200,150,62,.5);
-      margin: .8rem 0 2.5rem;
-    }
-    .hp-timer span {
-      background: rgba(200,150,62,.1); color: var(--gold);
-      border-radius: 5px; padding: .1rem .5rem;
-      margin: 0 .1rem; font-weight: 600;
-    }
-    .hp-row {
-      display: flex; flex-wrap: wrap; gap: 1.2rem;
-      justify-content: center;
-    }
-    .hp-card {
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(200,150,62,.2);
-      border-radius: var(--r-lg); padding: 1.6rem 1.8rem;
-      min-width: 220px; flex: 1; max-width: 260px;
-      transition: border-color .25s, transform .25s, background .25s;
-    }
-    .hp-card:hover {
-      border-color: rgba(200,150,62,.5);
-      background: rgba(200,150,62,.06);
-      transform: translateY(-4px);
-    }
-    .hp-origin {
-      font-size: .65rem; letter-spacing: .16em;
-      text-transform: uppercase; color: var(--gold);
-      opacity: .7; margin-bottom: .35rem;
-    }
-    .hp-name {
-      font-family: var(--serif);
-      font-size: 1.15rem; font-weight: 500;
-      color: var(--cream); margin-bottom: .5rem;
-    }
-    .hp-flavors { font-size: .72rem; color: rgba(200,150,62,.5); margin-bottom: .9rem; }
-    .hp-price-row {
-      display: flex; align-items: baseline; gap: .6rem;
-      margin-bottom: 1rem;
-    }
-    .hp-orig { font-size: .85rem; color: rgba(200,150,62,.35); text-decoration: line-through; }
-    .hp-sale {
-      font-family: var(--serif);
-      font-size: 1.5rem; font-weight: 500; color: var(--gold-hi);
-    }
-    .hp-pill {
-      background: var(--gold); color: var(--espresso);
-      font-size: .62rem; font-weight: 700; letter-spacing: .08em;
-      border-radius: 4px; padding: .12rem .4rem;
-    }
-    .hp-btn {
-      width: 100%; background: none;
-      border: 1px solid rgba(200,150,62,.35); border-radius: var(--r-sm);
-      color: var(--gold); padding: .45rem;
-      font-size: .8rem; letter-spacing: .06em;
-      transition: background .2s, color .2s, border-color .2s;
-    }
-    .hp-btn:hover {
-      background: var(--gold); color: var(--espresso);
-      border-color: var(--gold);
-    }
+/* ── REVEAL ───────────────────────────────────── */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity .8s var(--ease-out), transform .8s var(--ease-out);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-left  { opacity:0; transform:translateX(-30px); transition: opacity .8s var(--ease-out), transform .8s var(--ease-out); }
+.reveal-right { opacity:0; transform:translateX(30px);  transition: opacity .8s var(--ease-out), transform .8s var(--ease-out); }
+.reveal-left.visible, .reveal-right.visible { opacity:1; transform:none; }
 
-    /* ── PHILOSOPHY ───────────────────────────────── */
-    .phi-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem; align-items: center;
-      max-width: 1000px; margin: 0 auto;
-    }
-    @media(max-width:720px){ .phi-grid{ grid-template-columns:1fr; gap:2.5rem; } }
-    .phi-left .eyebrow { color: var(--gold); }
-    .phi-left .section-heading { color: var(--cream); }
-    .phi-body {
-      font-size: .92rem; font-weight: 300;
-      color: rgba(224,206,188,.65);
-      line-height: 2; margin-top: 1.2rem;
-    }
-    .phi-right {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: .75rem;
-    }
-    .phi-point {
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(200,150,62,.12);
-      border-radius: var(--r-md);
-      padding: 1rem 1.1rem;
-    }
-    .phi-point-icon { font-size: 1.1rem; margin-bottom: .4rem; }
-    .phi-point-text {
-      font-size: .8rem; font-weight: 400;
-      color: rgba(224,206,188,.6); line-height: 1.6;
-    }
+/* ══════════════════════════════════════════════
+   NAV
+══════════════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  height: 68px;
+  display: flex; align-items: center;
+  padding: 0 3rem;
+  transition: background .5s, border-color .5s;
+}
+.nav.scrolled {
+  background: rgba(9,24,42,.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(192,216,232,.08);
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.3rem; font-weight: 300;
+  letter-spacing: .25em;
+  color: rgba(253,250,245,.9);
+  margin-right: auto;
+}
+.nav-logo em { font-style: italic; font-weight: 400; color: var(--gold-hi); }
+.nav-links {
+  display: flex; gap: 2rem; align-items: center;
+}
+.nav-links a {
+  font-size: .72rem; font-weight: 400;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(253,250,245,.45);
+  transition: color .25s;
+}
+.nav-links a:hover { color: var(--gold-hi); }
+.nav-cart {
+  margin-left: 2rem;
+  display: flex; align-items: center; gap: .5rem;
+  background: transparent;
+  border: 1px solid rgba(212,168,64,.4);
+  border-radius: 40px; padding: .38rem 1.1rem;
+  font-size: .72rem; font-weight: 400; letter-spacing: .1em;
+  color: var(--gold-hi);
+  transition: background .25s, border-color .25s;
+}
+.nav-cart:hover { background: rgba(212,168,64,.12); border-color: var(--gold-hi); }
+.cart-badge {
+  background: var(--gold); color: var(--deep);
+  border-radius: 50%; width: 19px; height: 19px;
+  font-size: .64rem; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+}
 
-    /* ── MONTHLY PASS ─────────────────────────────── */
-    .pass-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.4rem; max-width: 900px; margin: 0 auto;
-    }
-    .pass-card {
-      background: #fff;
-      border: 1.5px solid var(--parchment);
-      border-radius: var(--r-lg);
-      padding: 2rem 1.7rem 1.8rem;
-      position: relative;
-      display: flex; flex-direction: column; gap: .55rem;
-      box-shadow: var(--shadow-card);
-      transition: border-color .25s, box-shadow .25s, transform .25s;
-    }
-    .pass-card:hover {
-      border-color: var(--gold);
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-5px);
-    }
-    .pass-card.featured { border-color: var(--gold); }
-    .pass-popular {
-      position: absolute; top: -13px; left: 50%;
-      transform: translateX(-50%);
-      background: var(--gold); color: var(--espresso);
-      font-size: .64rem; font-weight: 700; letter-spacing: .1em;
-      border-radius: 20px; padding: .22rem .9rem;
-      white-space: nowrap;
-    }
-    .pass-icon { font-size: 1.5rem; }
-    .pass-name {
-      font-family: var(--serif);
-      font-size: 1.2rem; font-weight: 500; color: var(--roast);
-    }
-    .pass-cups { font-size: .82rem; color: var(--muted); font-weight: 300; }
-    .pass-price-row { display: flex; align-items: baseline; gap: .3rem; margin: .3rem 0; }
-    .pass-price {
-      font-family: var(--serif);
-      font-size: 2.2rem; font-weight: 500; color: var(--espresso); line-height: 1;
-    }
-    .pass-period { font-size: .8rem; color: var(--muted); }
-    .pass-saving { font-size: .8rem; color: #5a9060; font-weight: 500; }
-    .pass-divider { height: 1px; background: var(--parchment); margin: .3rem 0; }
-    .pass-features {
-      list-style: none; font-size: .8rem;
-      color: var(--muted); display: flex; flex-direction: column; gap: .3rem;
-    }
-    .pass-features li { display: flex; align-items: flex-start; gap: .4rem; }
-    .pass-features li::before {
-      content: '✦'; color: var(--gold);
-      font-size: .6rem; margin-top: .28rem; flex-shrink: 0;
-    }
-    .pass-btn {
-      margin-top: auto;
-      padding: .75rem; border: none;
-      border-radius: var(--r-sm);
-      background: var(--roast); color: #fff;
-      font-size: .88rem; font-weight: 500; letter-spacing: .06em;
-      transition: background .2s, transform .15s;
-    }
-    .pass-btn:hover { background: var(--espresso); transform: scale(1.02); }
-    .pass-card.featured .pass-btn { background: var(--gold); color: var(--espresso); }
-    .pass-card.featured .pass-btn:hover { background: var(--gold-hi); }
+/* ══════════════════════════════════════════════
+   HERO — FLOOR TO CEILING OCEAN
+══════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  height: 100vh; min-height: 640px;
+  overflow: hidden;
+  display: flex; align-items: flex-end;
+  justify-content: center;
+}
 
-    /* ── ICED SECTION ─────────────────────────────── */
-    .iced-section {
-      background: var(--ice-dark);
-      padding: 5rem max(1.5rem, calc(50vw - 560px));
-      position: relative; overflow: hidden;
-    }
-    .iced-bg-glow {
-      position: absolute; inset: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 60% 50% at 15% 80%, rgba(91,200,232,.05) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 85% 20%, rgba(184,126,232,.04) 0%, transparent 60%),
-        radial-gradient(ellipse 70% 30% at 50% 50%, rgba(120,216,160,.03) 0%, transparent 70%);
-    }
-    .iced-section .eyebrow { color: var(--ice-blue); text-align: center; }
-    .iced-section .section-heading { color: #e8f4f8; text-align: center; display: block; }
-    .iced-section .section-heading em { color: #7ee0f8; }
-    .iced-section .section-sub { text-align: center; color: rgba(91,200,232,.35); }
-    .iced-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 1.4rem; margin-top: 3rem;
-    }
-    .iced-card {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(91,200,232,.12);
-      border-radius: var(--r-lg); overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: border-color .25s, transform .25s, box-shadow .25s;
-    }
-    .iced-card:hover {
-      border-color: rgba(91,200,232,.35);
-      transform: translateY(-5px);
-      box-shadow: 0 16px 40px rgba(8,17,26,.5), 0 0 0 1px rgba(91,200,232,.1);
-    }
-    .iced-card-top {
-      padding: 1.4rem 1.6rem 1rem;
-      background: linear-gradient(135deg,
-        rgba(91,200,232,.08) 0%, rgba(184,126,232,.05) 100%);
-      border-bottom: 1px solid rgba(91,200,232,.07);
-      position: relative;
-    }
-    .iced-temp {
-      position: absolute; top: 1rem; right: 1rem;
-      font-size: .62rem; letter-spacing: .1em;
-      color: var(--ice-blue); opacity: .6;
-      border: 1px solid rgba(91,200,232,.2);
-      border-radius: 6px; padding: .12rem .5rem;
-    }
-    .iced-name {
-      font-family: var(--serif);
-      font-size: 1.3rem; font-weight: 500;
-      color: #e8f4f8; letter-spacing: .05em; margin-bottom: .15rem;
-    }
-    .iced-en {
-      font-size: .72rem; color: rgba(91,200,232,.4);
-      letter-spacing: .08em; margin-bottom: .75rem;
-    }
-    .iced-ings {
-      display: flex; flex-wrap: wrap; gap: .3rem;
-    }
-    .ing-chip {
-      background: rgba(91,200,232,.06);
-      border: 1px solid rgba(91,200,232,.15);
-      border-radius: 6px; padding: .12rem .5rem;
-      font-size: .68rem; color: rgba(91,200,232,.65);
-      letter-spacing: .02em;
-    }
-    .iced-body {
-      padding: 1.1rem 1.6rem; flex: 1;
-      display: flex; flex-direction: column; gap: .8rem;
-    }
-    .iced-notes-row {
-      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .4rem;
-    }
-    .iced-note {
-      background: rgba(255,255,255,.02);
-      border-radius: var(--r-sm); padding: .45rem .5rem;
-      text-align: center;
-    }
-    .iced-note.front { border-top: 2px solid rgba(91,200,232,.6); }
-    .iced-note.mid   { border-top: 2px solid rgba(184,126,232,.6); }
-    .iced-note.back  { border-top: 2px solid rgba(120,216,160,.6); }
-    .note-lbl {
-      font-size: .56rem; letter-spacing: .14em; text-transform: uppercase;
-      display: block; margin-bottom: .2rem;
-    }
-    .iced-note.front .note-lbl { color: var(--ice-blue); }
-    .iced-note.mid   .note-lbl { color: var(--ice-purple); }
-    .iced-note.back  .note-lbl { color: var(--ice-green); }
-    .note-val { font-size: .68rem; color: rgba(200,230,240,.6); line-height: 1.5; }
-    .iced-desc {
-      font-size: .83rem; font-weight: 300;
-      color: rgba(100,160,180,.7); line-height: 1.75;
-    }
-    .iced-footer {
-      padding: .9rem 1.6rem;
-      border-top: 1px solid rgba(91,200,232,.06);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .iced-price {
-      font-family: var(--serif);
-      font-size: 1.35rem; font-weight: 400; color: #7ee0f8;
-    }
-    .iced-add {
-      background: rgba(91,200,232,.1);
-      border: 1px solid rgba(91,200,232,.3);
-      border-radius: var(--r-sm);
-      color: var(--ice-blue); padding: .4rem 1.1rem;
-      font-size: .8rem; letter-spacing: .05em;
-      transition: background .2s, color .2s;
-    }
-    .iced-add:hover { background: var(--ice-blue); color: var(--ice-dark); }
+/* Ocean scene layers */
+.hero-sky {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    #c8d8e0 0%,
+    #a8c4d4 18%,
+    #88aec4 35%,
+    #6a98b4 45%,
+    #d4b870 49.2%,
+    #c89830 49.8%,      /* golden horizon line */
+    #1e5a80 50.5%,
+    #14385a 65%,
+    #0d2840 80%,
+    #081820 100%
+  );
+}
 
-    /* ── COFFEE MENU ──────────────────────────────── */
-    .menu-section { background: var(--cream); }
-    .filter-bar {
-      display: flex; flex-wrap: wrap; gap: .5rem;
-      justify-content: center; margin-bottom: 2.8rem;
-    }
-    .filter-btn {
-      background: #fff; border: 1.5px solid var(--latte);
-      border-radius: 40px; padding: .38rem 1.1rem;
-      font-size: .76rem; font-weight: 400; letter-spacing: .06em;
-      color: var(--muted);
-      transition: all .2s;
-    }
-    .filter-btn.active, .filter-btn:hover {
-      background: var(--roast); color: #fff; border-color: var(--roast);
-    }
-    .coffee-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-    .coffee-card {
-      background: #fff;
-      border-radius: var(--r-lg);
-      box-shadow: var(--shadow-card);
-      overflow: hidden; display: flex; flex-direction: column;
-      transition: box-shadow .25s, transform .25s;
-      position: relative;
-    }
-    .coffee-card:hover {
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-5px);
-    }
-    .today-ribbon {
-      position: absolute; top: 12px; left: 12px; z-index: 2;
-      background: var(--gold); color: var(--espresso);
-      font-size: .62rem; font-weight: 700; letter-spacing: .08em;
-      border-radius: 5px; padding: .18rem .55rem;
-    }
-    .card-cap {
-      background: linear-gradient(150deg, var(--warm) 0%, var(--roast) 100%);
-      padding: 1.4rem 1.5rem 1rem; position: relative;
-    }
-    .card-process {
-      position: absolute; top: .9rem; right: .9rem;
-      background: rgba(255,255,255,.12); border-radius: 6px;
-      padding: .12rem .5rem; font-size: .64rem; color: rgba(255,255,255,.7);
-      letter-spacing: .06em;
-    }
-    .card-origin {
-      font-size: .64rem; letter-spacing: .14em; text-transform: uppercase;
-      color: rgba(255,255,255,.45); margin-bottom: .3rem;
-    }
-    .card-name {
-      font-family: var(--serif);
-      font-size: 1.1rem; font-weight: 500;
-      color: #fff; line-height: 1.35;
-    }
-    .card-en { font-size: .72rem; color: rgba(255,255,255,.38); margin-top: .1rem; }
-    .card-body { padding: 1.1rem 1.5rem; flex: 1; display: flex; flex-direction: column; gap: .65rem; }
-    /* tasting notes on card */
-    .card-notes {
-      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .35rem;
-    }
-    .cn {
-      background: var(--parchment); border-radius: 7px;
-      padding: .42rem .45rem; text-align: center;
-    }
-    .cn.front { border-top: 2px solid #7aaa80; }
-    .cn.mid   { border-top: 2px solid var(--gold); }
-    .cn.back  { border-top: 2px solid #8b4a4a; }
-    .cn-label {
-      font-size: .56rem; letter-spacing: .14em; text-transform: uppercase;
-      display: block; margin-bottom: .18rem;
-    }
-    .cn.front .cn-label { color: #5a9060; }
-    .cn.mid   .cn-label { color: #9a7030; }
-    .cn.back  .cn-label { color: #8b4a4a; }
-    .cn-val { font-size: .68rem; color: var(--ink); line-height: 1.5; }
-    .flavor-chips { display: flex; flex-wrap: wrap; gap: .28rem; }
-    .flavor-chip {
-      background: var(--parchment); border-radius: 5px;
-      padding: .1rem .5rem; font-size: .7rem; color: var(--muted);
-    }
-    .card-desc {
-      font-size: .82rem; font-weight: 300;
-      color: #5a4030; line-height: 1.7; flex: 1;
-    }
-    .card-foot {
-      padding: .85rem 1.5rem;
-      border-top: 1px solid var(--parchment);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .card-price-wrap { display: flex; flex-direction: column; gap: .05rem; }
-    .card-price-orig {
-      font-size: .75rem; color: var(--latte);
-      text-decoration: line-through; line-height: 1;
-    }
-    .card-price {
-      font-family: var(--serif);
-      font-size: 1.3rem; font-weight: 500; color: var(--roast);
-    }
-    .card-controls { display: flex; align-items: center; gap: .5rem; }
-    .weight-sel {
-      border: 1.5px solid var(--parchment); border-radius: 7px;
-      padding: .28rem .45rem; font-size: .78rem;
-      background: var(--cream); color: var(--ink); cursor: pointer;
-    }
-    .add-btn {
-      background: var(--roast); color: #fff; border: none;
-      border-radius: var(--r-sm); padding: .42rem 1rem;
-      font-size: .82rem; font-weight: 500;
-      transition: background .2s, transform .15s;
-    }
-    .add-btn:hover { background: var(--espresso); transform: scale(1.04); }
-    .add-btn.half-price {
-      background: var(--gold); color: var(--espresso);
-    }
-    .add-btn.half-price:hover { background: var(--gold-hi); }
+/* Sun glow on horizon */
+.hero-sun {
+  position: absolute;
+  top: 44%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px; height: 180px;
+  background: radial-gradient(circle,
+    rgba(232,200,100,.45) 0%,
+    rgba(212,168,64,.2) 35%,
+    transparent 70%);
+  pointer-events: none;
+}
 
-    /* ── DELIVERY STRIP ───────────────────────────── */
-    .delivery-strip {
-      background: linear-gradient(90deg, var(--roast) 0%, var(--warm) 100%);
-      color: var(--cream);
-      padding: 2.8rem max(1.5rem, calc(50vw - 560px));
-      text-align: center;
-    }
-    .delivery-strip strong { color: var(--gold-hi); font-family: var(--serif); font-size: 1.1rem; }
-    .delivery-strip p { font-size: .88rem; font-weight: 300; color: rgba(250,246,240,.65); margin-top: .5rem; line-height: 2; }
+/* Light rays */
+.hero-rays {
+  position: absolute; inset: 0;
+  background: conic-gradient(
+    from 270deg at 50% 49.5%,
+    transparent 0deg,
+    rgba(240,220,140,.03) 2deg,
+    transparent 4deg,
+    rgba(240,220,140,.025) 7deg,
+    transparent 10deg,
+    rgba(240,220,140,.02) 14deg,
+    transparent 18deg
+  );
+  pointer-events: none;
+}
 
-    /* ── CART PANEL ───────────────────────────────── */
-    .overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,.55); z-index: 1000;
-      backdrop-filter: blur(4px);
-    }
-    .overlay.open { display: block; }
-    .cart-panel {
-      position: fixed; top: 0; right: -460px;
-      width: min(460px, 100vw); height: 100%;
-      background: var(--cream); z-index: 1001;
-      display: flex; flex-direction: column;
-      transition: right .35s cubic-bezier(.25,.1,.25,1);
-      box-shadow: -8px 0 40px rgba(0,0,0,.2);
-    }
-    .cart-panel.open { right: 0; }
-    .cart-head {
-      background: var(--espresso); color: var(--cream);
-      padding: 1.1rem 1.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      border-bottom: 1px solid rgba(200,150,62,.12);
-    }
-    .cart-head h2 {
-      font-family: var(--serif);
-      font-size: 1rem; font-weight: 400; letter-spacing: .08em;
-    }
-    .cart-close {
-      background: none; border: none;
-      color: rgba(250,246,240,.4); font-size: 1.3rem;
-      transition: color .2s;
-    }
-    .cart-close:hover { color: var(--cream); }
-    .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
-    .cart-empty {
-      text-align: center; color: var(--muted);
-      padding: 3.5rem 0; font-size: .88rem;
-      font-weight: 300; line-height: 2.2;
-    }
-    .c-item {
-      display: flex; gap: .8rem; padding: .9rem 0;
-      border-bottom: 1px solid var(--parchment);
-    }
-    .c-info { flex: 1; }
-    .c-name {
-      font-size: .88rem; font-weight: 500; color: var(--ink);
-    }
-    .c-half {
-      font-size: .62rem; font-weight: 700;
-      background: var(--gold); color: var(--espresso);
-      border-radius: 3px; padding: .05rem .28rem; margin-left: .3rem;
-    }
-    .c-weight { font-size: .74rem; color: var(--muted); margin-top: .05rem; }
-    .c-qty {
-      display: flex; align-items: center; gap: .45rem; margin-top: .4rem;
-    }
-    .qty-btn {
-      width: 26px; height: 26px; border-radius: 6px;
-      border: 1px solid var(--parchment); background: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .95rem; color: var(--muted);
-      transition: background .15s;
-    }
-    .qty-btn:hover { background: var(--parchment); color: var(--ink); }
-    .c-right { display: flex; flex-direction: column; align-items: flex-end; gap: .3rem; padding-top: .15rem; }
-    .c-price {
-      font-family: var(--serif);
-      font-size: 1rem; font-weight: 500; color: var(--roast);
-    }
-    .c-remove { background: none; border: none; color: var(--latte); font-size: .95rem; transition: color .2s; }
-    .c-remove:hover { color: #8b2020; }
-    .cart-foot {
-      padding: 1rem 1.5rem;
-      border-top: 1px solid var(--parchment);
-      background: #fff;
-    }
-    .cart-total-row {
-      display: flex; justify-content: space-between; align-items: baseline;
-      margin-bottom: 1.1rem;
-      font-size: .9rem; color: var(--muted);
-    }
-    .cart-total-row strong {
-      font-family: var(--serif);
-      font-size: 1.3rem; color: var(--roast);
-    }
-    .order-form { display: flex; flex-direction: column; gap: .55rem; }
-    .order-form input,
-    .order-form select,
-    .order-form textarea {
-      width: 100%; padding: .55rem .85rem;
-      border: 1.5px solid var(--parchment); border-radius: var(--r-sm);
-      font-family: var(--sans); font-size: .85rem;
-      background: var(--cream); color: var(--ink);
-      transition: border-color .2s;
-    }
-    .order-form input:focus,
-    .order-form select:focus,
-    .order-form textarea:focus {
-      outline: none; border-color: var(--gold);
-    }
-    .order-form textarea { resize: vertical; min-height: 52px; }
-    .form-note { font-size: .72rem; color: var(--muted); text-align: center; }
-    .form-err { font-size: .74rem; color: #c0392b; }
-    .submit-btn {
-      width: 100%; padding: .8rem; border: none;
-      background: var(--roast); color: #fff;
-      border-radius: var(--r-sm);
-      font-size: .9rem; font-weight: 500; letter-spacing: .08em;
-      transition: background .2s, transform .15s;
-    }
-    .submit-btn:hover { background: var(--espresso); transform: scale(1.01); }
+/* Ocean shimmer animation */
+.hero-shimmer {
+  position: absolute;
+  top: 49.8%; left: 0; right: 0;
+  height: 50.2%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 18px,
+    rgba(255,255,255,.025) 19px,
+    transparent 20px
+  );
+  animation: shimmerMove 8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes shimmerMove {
+  0%, 100% { opacity: .6; transform: translateY(0); }
+  50%       { opacity: 1;  transform: translateY(-4px); }
+}
 
-    /* ── SUCCESS MODAL ────────────────────────────── */
-    .modal-bg {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,.6); z-index: 2000;
-      align-items: center; justify-content: center;
-      backdrop-filter: blur(6px);
-    }
-    .modal-bg.open { display: flex; }
-    .modal {
-      background: #fff; border-radius: var(--r-lg);
-      padding: 2.8rem 2.2rem; max-width: 380px; width: 90%;
-      text-align: center;
-      box-shadow: 0 24px 64px rgba(0,0,0,.25);
-    }
-    .modal-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-    .modal h3 {
-      font-family: var(--serif);
-      font-size: 1.4rem; font-weight: 500;
-      color: var(--espresso); margin-bottom: .6rem;
-    }
-    .modal p { font-size: .88rem; color: var(--muted); line-height: 1.9; }
-    .modal-cta {
-      margin-top: 1.6rem; padding: .7rem 2rem;
-      background: var(--roast); color: #fff; border: none;
-      border-radius: var(--r-sm);
-      font-size: .88rem; font-weight: 500; letter-spacing: .06em;
-      transition: background .2s;
-    }
-    .modal-cta:hover { background: var(--espresso); }
+/* Window frame — mullions */
+.hero-window {
+  position: absolute; inset: 0;
+  pointer-events: none;
+}
+.hero-window::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(200,185,150,.25) 15%,
+    rgba(200,185,150,.2) 85%,
+    transparent 100%);
+}
+.hero-window::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 46%; right: 0;
+  height: 1px;
+  background: linear-gradient(to right,
+    transparent 0%,
+    rgba(200,185,150,.2) 20%,
+    rgba(200,185,150,.15) 80%,
+    transparent 100%);
+}
+.mullion-v2 {
+  position: absolute; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(200,185,150,.15) 15%,
+    rgba(200,185,150,.12) 85%,
+    transparent 100%);
+}
 
-    /* ── TOAST ────────────────────────────────────── */
-    .toast {
-      position: fixed; bottom: 2rem; left: 50%;
-      transform: translateX(-50%) translateY(70px);
-      background: var(--espresso); color: var(--cream);
-      border: 1px solid rgba(200,150,62,.25);
-      border-radius: 40px; padding: .6rem 1.6rem;
-      font-size: .82rem; font-weight: 300;
-      letter-spacing: .04em;
-      opacity: 0; pointer-events: none; white-space: nowrap;
-      z-index: 3000;
-      transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s;
-    }
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
+/* Interior vignette — sides */
+.hero-vignette {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to right,  rgba(12,22,32,.55) 0%, transparent 22%),
+    linear-gradient(to left,   rgba(12,22,32,.55) 0%, transparent 22%),
+    linear-gradient(to bottom, rgba(12,22,32,.3) 0%, transparent 25%),
+    linear-gradient(to top,    rgba(8,18,28,.8) 0%, transparent 40%);
+  pointer-events: none;
+}
 
-    /* ── FOOTER ───────────────────────────────────── */
-    footer {
-      background: var(--ink); color: rgba(200,150,62,.25);
-      padding: 2.5rem max(1.5rem, calc(50vw - 560px));
-      text-align: center;
-      font-size: .78rem; font-weight: 300; line-height: 2.4;
-      letter-spacing: .06em;
-      border-top: 1px solid rgba(200,150,62,.06);
-    }
-    footer strong { color: rgba(200,150,62,.55); }
+/* Content */
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center;
+  padding: 0 2rem 8vh;
+  max-width: 700px;
+}
+.hero-kicker {
+  font-family: var(--sans);
+  font-size: .68rem; font-weight: 300;
+  letter-spacing: .36em; text-transform: uppercase;
+  color: rgba(192,216,232,.55);
+  margin-bottom: 1.4rem;
+}
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 300; line-height: 1.1;
+  color: rgba(253,250,245,.95);
+  letter-spacing: .05em;
+  margin-bottom: .4rem;
+}
+.hero-title em {
+  font-style: italic; font-weight: 300;
+  color: var(--gold-hi);
+  display: block;
+}
+.hero-subtitle {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  font-weight: 300; font-style: italic;
+  color: rgba(192,216,232,.65);
+  letter-spacing: .08em;
+  margin: 1.2rem 0 2rem;
+  line-height: 1.7;
+}
+.hero-badges {
+  display: flex; flex-wrap: wrap; gap: .6rem;
+  justify-content: center; margin-bottom: 2rem;
+}
+.hbadge {
+  border: 1px solid rgba(192,216,232,.2); border-radius: 40px;
+  padding: .34rem 1rem;
+  font-size: .72rem; font-weight: 300; letter-spacing: .1em;
+  color: rgba(192,216,232,.6);
+  transition: border-color .25s, color .25s;
+}
+.hbadge:hover { border-color: var(--gold-hi); color: var(--gold-hi); }
+.hbadge.cta {
+  background: linear-gradient(135deg, rgba(212,168,64,.2), rgba(200,148,12,.1));
+  border-color: rgba(212,168,64,.5); color: var(--gold-hi);
+}
+.hero-scroll {
+  position: absolute; bottom: 2.5rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: .6rem;
+  z-index: 2;
+}
+.scroll-text { font-size: .6rem; letter-spacing: .25em; text-transform: uppercase; color: rgba(192,216,232,.25); }
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, rgba(192,216,232,.3), transparent);
+  animation: breathe 2.4s ease-in-out infinite;
+}
+@keyframes breathe { 0%,100%{opacity:.3;transform:scaleY(1)} 50%{opacity:.8;transform:scaleY(1.1)} }
 
-    /* ── RESPONSIVE ───────────────────────────────── */
-    @media (max-width: 600px) {
-      .nav-links { display: none; }
-      .phi-right { grid-template-columns: 1fr 1fr; }
-      .card-foot { flex-wrap: wrap; gap: .6rem; }
-      .pass-grid { grid-template-columns: 1fr; }
-      .iced-grid { grid-template-columns: 1fr; }
-    }
+/* ══════════════════════════════════════════════
+   INTRO STRIP — LINEN TEXTURE
+══════════════════════════════════════════════ */
+.intro-strip {
+  background: var(--lin);
+  padding: 4rem 3rem;
+  text-align: center;
+  border-top: 1px solid rgba(184,100,56,.08);
+  border-bottom: 1px solid rgba(184,100,56,.08);
+}
+.intro-strip blockquote {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  font-weight: 300; font-style: italic;
+  color: var(--ocean);
+  letter-spacing: .05em; line-height: 1.7;
+  max-width: 680px; margin: 0 auto .8rem;
+}
+.intro-strip cite {
+  font-size: .72rem; font-weight: 400;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted); font-style: normal;
+}
+
+/* ══════════════════════════════════════════════
+   SECTION BASE
+══════════════════════════════════════════════ */
+.section {
+  padding: 6rem max(2rem, calc(50vw - 580px));
+}
+.eyebrow {
+  font-size: .66rem; font-weight: 400;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--azure); margin-bottom: .6rem;
+}
+.eyebrow.warm { color: var(--terre); }
+.eyebrow.light { color: rgba(192,216,232,.5); }
+.s-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300; line-height: 1.25;
+  letter-spacing: .04em;
+}
+.s-title em { font-style: italic; color: var(--azure); }
+.s-title.on-dark { color: var(--blanc); }
+.s-title.on-dark em { color: var(--gold-hi); }
+.s-sub {
+  font-size: .88rem; font-weight: 300;
+  color: var(--muted); margin-top: .7rem; line-height: 1.9;
+}
+.s-sub.on-dark { color: rgba(192,216,232,.4); }
+.section-header { text-align: center; margin-bottom: 3.5rem; }
+.s-rule { width: 36px; height: 1px; background: var(--azure); opacity: .3; margin: 1.2rem auto; }
+
+/* ══════════════════════════════════════════════
+   TODAY HALF PRICE
+══════════════════════════════════════════════ */
+#today {
+  background: var(--blanc);
+  border-top: 1px solid rgba(58,136,176,.08);
+}
+.hp-timer {
+  font-size: .74rem; font-weight: 300;
+  letter-spacing: .1em; color: rgba(58,136,176,.5);
+  text-align: center; margin: .6rem 0 3rem;
+}
+.hp-timer span {
+  background: rgba(58,136,176,.07); color: var(--azure);
+  border-radius: 4px; padding: .1rem .45rem;
+  font-weight: 500; margin: 0 .1rem;
+}
+.hp-row { display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; }
+.hp-card {
+  background: var(--blanc);
+  border: 1px solid rgba(58,136,176,.12);
+  border-radius: 16px; padding: 2rem 2rem 1.6rem;
+  min-width: 230px; flex: 1; max-width: 280px;
+  transition: border-color .3s, transform .3s, box-shadow .3s;
+  position: relative; overflow: hidden;
+}
+.hp-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--seafoam), var(--azure));
+  opacity: .6;
+}
+.hp-card:hover {
+  border-color: rgba(58,136,176,.3);
+  box-shadow: 0 12px 40px rgba(20,56,90,.08);
+  transform: translateY(-5px);
+}
+.hp-origin {
+  font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: .4rem;
+}
+.hp-name {
+  font-family: var(--serif);
+  font-size: 1.35rem; font-weight: 400;
+  color: var(--ocean); margin-bottom: .3rem;
+}
+.hp-flavor { font-size: .74rem; color: rgba(58,136,176,.55); margin-bottom: 1rem; font-style: italic; }
+.hp-prices {
+  display: flex; align-items: baseline; gap: .7rem; margin-bottom: 1.2rem;
+}
+.hp-orig { font-size: .88rem; color: var(--pierre); text-decoration: line-through; }
+.hp-sale {
+  font-family: var(--serif);
+  font-size: 1.8rem; font-weight: 400; color: var(--ocean);
+}
+.hp-pill {
+  font-size: .62rem; font-weight: 500; letter-spacing: .08em;
+  background: var(--gold); color: var(--deep);
+  border-radius: 4px; padding: .12rem .4rem;
+}
+.hp-btn {
+  width: 100%; background: none;
+  border: 1px solid rgba(58,136,176,.25); border-radius: 8px;
+  color: var(--azure); padding: .5rem;
+  font-size: .78rem; font-weight: 300; letter-spacing: .08em;
+  transition: all .25s;
+}
+.hp-btn:hover { background: var(--ocean); color: var(--blanc); border-color: var(--ocean); }
+
+/* ══════════════════════════════════════════════
+   PHILOSOPHY — OCEAN DARK
+══════════════════════════════════════════════ */
+.phi-section {
+  background: var(--deep);
+  position: relative; overflow: hidden;
+}
+.phi-ocean-top {
+  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, transparent, var(--tide), var(--azure), var(--seafoam), var(--azure), var(--tide), transparent);
+  opacity: .4;
+}
+.phi-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center;
+  max-width: 1080px; margin: 0 auto;
+}
+@media(max-width:750px){ .phi-grid{grid-template-columns:1fr; gap:3rem;} }
+.phi-body {
+  font-size: .92rem; font-weight: 300;
+  color: rgba(192,216,232,.5);
+  line-height: 2.1; margin-top: 1.2rem;
+}
+.phi-points {
+  display: grid; grid-template-columns: 1fr 1fr; gap: .8rem;
+}
+.phi-pt {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(58,136,176,.1);
+  border-radius: 12px; padding: 1.1rem;
+  transition: border-color .25s, background .25s;
+}
+.phi-pt:hover { background: rgba(58,136,176,.06); border-color: rgba(58,136,176,.25); }
+.phi-pt-icon { font-size: 1.1rem; margin-bottom: .4rem; }
+.phi-pt-text { font-size: .78rem; color: rgba(192,216,232,.45); line-height: 1.65; }
+
+/* ══════════════════════════════════════════════
+   MONTHLY PASS — PROVENCE
+══════════════════════════════════════════════ */
+.pass-section {
+  background: var(--lin);
+  border-top: 1px solid rgba(184,100,56,.06);
+  border-bottom: 1px solid rgba(184,100,56,.06);
+}
+.pass-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+  gap: 1.4rem; max-width: 940px; margin: 0 auto;
+}
+.pass-card {
+  background: var(--blanc);
+  border: 1px solid var(--pierre);
+  border-radius: 20px;
+  padding: 2.2rem 1.9rem 1.9rem;
+  position: relative;
+  display: flex; flex-direction: column; gap: .5rem;
+  box-shadow: 0 2px 20px rgba(20,56,90,.05), 0 1px 4px rgba(20,56,90,.03);
+  transition: border-color .3s, box-shadow .3s, transform .3s;
+}
+.pass-card:hover {
+  border-color: rgba(212,168,64,.4);
+  box-shadow: 0 16px 48px rgba(20,56,90,.1);
+  transform: translateY(-6px);
+}
+.pass-card.featured { border-color: rgba(212,168,64,.35); }
+.pass-top-line {
+  position: absolute; top: 0; left: 2rem; right: 2rem; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sable), transparent);
+}
+.pass-featured-line {
+  position: absolute; top: 0; left: 2rem; right: 2rem; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.pass-popular {
+  position: absolute; top: -13px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold); color: var(--deep);
+  font-size: .62rem; font-weight: 500; letter-spacing: .12em;
+  border-radius: 20px; padding: .2rem .9rem; white-space: nowrap;
+}
+.pass-icon { font-size: 1.4rem; }
+.pass-name {
+  font-family: var(--serif);
+  font-size: 1.25rem; font-weight: 400; color: var(--ocean);
+}
+.pass-cups { font-size: .8rem; color: var(--muted); font-weight: 300; }
+.pass-price-wrap { display: flex; align-items: baseline; gap: .3rem; margin: .3rem 0; }
+.pass-price { font-family: var(--serif); font-size: 2.4rem; font-weight: 300; color: var(--encre); line-height: 1; }
+.pass-period { font-size: .78rem; color: var(--muted); }
+.pass-saving { font-size: .78rem; color: var(--sauge); font-weight: 400; }
+.pass-divider { height: 1px; background: var(--pierre); margin: .4rem 0; }
+.pass-features { list-style: none; font-size: .8rem; color: var(--muted); display: flex; flex-direction: column; gap: .32rem; }
+.pass-features li { display: flex; gap: .45rem; align-items: flex-start; }
+.pass-features li::before { content:'·'; color: var(--gold); font-size: 1rem; line-height: 1.4; flex-shrink:0; }
+.pass-btn {
+  margin-top: auto; padding: .75rem; border: none;
+  border-radius: 10px; background: var(--ocean); color: var(--blanc);
+  font-size: .82rem; font-weight: 300; letter-spacing: .1em;
+  transition: background .25s, transform .15s;
+}
+.pass-btn:hover { background: var(--deep); transform: scale(1.02); }
+.pass-card.featured .pass-btn { background: var(--gold); color: var(--deep); }
+.pass-card.featured .pass-btn:hover { background: var(--gold-hi); }
+
+/* ══════════════════════════════════════════════
+   ICED DRINKS — DEEP OCEAN NIGHT
+══════════════════════════════════════════════ */
+.iced-wrap {
+  background: var(--deep);
+  position: relative; overflow: hidden;
+}
+.iced-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 90%, rgba(30,90,128,.2) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(144,128,168,.1) 0%, transparent 55%),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px, transparent 60px,
+      rgba(255,255,255,.008) 61px, transparent 62px
+    );
+}
+.iced-wrap .eyebrow { text-align: center; color: var(--seafoam); opacity: .8; }
+.iced-wrap .s-title { text-align: center; }
+.iced-wrap .s-sub  { text-align: center; }
+.iced-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px,1fr));
+  gap: 1.3rem; margin-top: 3.5rem;
+}
+.iced-card {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(106,176,200,.1);
+  border-radius: 18px; overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: border-color .3s, transform .3s, box-shadow .3s;
+}
+.iced-card:hover {
+  border-color: rgba(106,176,200,.3);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(8,24,32,.5), 0 0 0 1px rgba(106,176,200,.12);
+}
+.iced-cap {
+  padding: 1.5rem 1.7rem 1.1rem;
+  background: linear-gradient(135deg,
+    rgba(106,176,200,.1) 0%, rgba(144,128,168,.06) 100%);
+  border-bottom: 1px solid rgba(106,176,200,.07);
+  position: relative;
+}
+.iced-temp-tag {
+  position: absolute; top: 1rem; right: 1rem;
+  font-size: .6rem; letter-spacing: .12em;
+  color: rgba(106,176,200,.5);
+  border: 1px solid rgba(106,176,200,.15);
+  border-radius: 6px; padding: .1rem .45rem;
+}
+.iced-name {
+  font-family: var(--serif);
+  font-size: 1.4rem; font-weight: 300;
+  color: rgba(253,250,245,.9); letter-spacing: .06em;
+}
+.iced-en-tag {
+  font-size: .7rem; color: rgba(106,176,200,.45);
+  letter-spacing: .1em; margin-top: .12rem; margin-bottom: .8rem;
+}
+.iced-ings { display: flex; flex-wrap: wrap; gap: .28rem; }
+.i-chip {
+  background: rgba(106,176,200,.06);
+  border: 1px solid rgba(106,176,200,.14);
+  border-radius: 6px; padding: .1rem .48rem;
+  font-size: .66rem; color: rgba(106,176,200,.65);
+}
+.iced-body { padding: 1.1rem 1.7rem; flex:1; display:flex; flex-direction:column; gap:.8rem; }
+.i-notes {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .35rem;
+}
+.i-note {
+  background: rgba(255,255,255,.025); border-radius: 7px;
+  padding: .42rem .45rem; text-align: center;
+}
+.i-note.f { border-top: 1.5px solid rgba(106,176,200,.5); }
+.i-note.m { border-top: 1.5px solid rgba(144,128,168,.5); }
+.i-note.b { border-top: 1.5px solid rgba(106,200,152,.5); }
+.i-nl {
+  font-size: .54rem; letter-spacing: .14em; text-transform: uppercase;
+  display: block; margin-bottom: .18rem;
+}
+.i-note.f .i-nl { color: var(--seafoam); }
+.i-note.m .i-nl { color: var(--lavande); }
+.i-note.b .i-nl { color: var(--sauge); }
+.i-nv { font-size: .67rem; color: rgba(192,220,232,.55); line-height: 1.5; }
+.iced-desc {
+  font-size: .82rem; font-weight: 300;
+  color: rgba(106,176,200,.55); line-height: 1.8;
+  font-style: italic;
+}
+.iced-foot {
+  padding: .9rem 1.7rem;
+  border-top: 1px solid rgba(106,176,200,.06);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.iced-price {
+  font-family: var(--serif);
+  font-size: 1.4rem; font-weight: 300; color: rgba(192,220,232,.8);
+}
+.iced-add {
+  background: rgba(106,176,200,.1);
+  border: 1px solid rgba(106,176,200,.25);
+  border-radius: 8px; color: var(--seafoam);
+  padding: .38rem 1.1rem;
+  font-size: .76rem; font-weight: 300; letter-spacing: .06em;
+  transition: all .25s;
+}
+.iced-add:hover { background: var(--azure); color: var(--blanc); border-color: var(--azure); }
+
+/* ══════════════════════════════════════════════
+   COFFEE MENU — BLANC / PIERRE
+══════════════════════════════════════════════ */
+.menu-wrap { background: var(--blanc); }
+.filter-row {
+  display: flex; flex-wrap: wrap; gap: .5rem;
+  justify-content: center; margin-bottom: 3rem;
+}
+.fbtn {
+  background: transparent; border: 1px solid var(--pierre);
+  border-radius: 40px; padding: .36rem 1.1rem;
+  font-size: .72rem; font-weight: 300; letter-spacing: .1em;
+  color: var(--muted);
+  transition: all .22s;
+}
+.fbtn.on, .fbtn:hover {
+  background: var(--ocean); color: var(--blanc); border-color: var(--ocean);
+}
+.c-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px,1fr));
+  gap: 1.5rem;
+}
+.c-card {
+  background: #fff;
+  border: 1px solid var(--pierre);
+  border-radius: 18px; overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: border-color .3s, box-shadow .3s, transform .3s;
+  position: relative;
+}
+.c-card:hover {
+  border-color: rgba(20,56,90,.18);
+  box-shadow: 0 14px 44px rgba(20,56,90,.08);
+  transform: translateY(-5px);
+}
+.c-today-tag {
+  position: absolute; top: 12px; left: 12px; z-index: 2;
+  background: var(--gold); color: var(--deep);
+  font-size: .58rem; font-weight: 500; letter-spacing: .1em;
+  border-radius: 5px; padding: .15rem .5rem;
+}
+.c-cap {
+  background: linear-gradient(150deg, var(--tide) 0%, var(--ocean) 100%);
+  padding: 1.4rem 1.6rem 1.1rem; position: relative;
+}
+.c-proc {
+  position: absolute; top: .9rem; right: .9rem;
+  background: rgba(255,255,255,.12); border-radius: 6px;
+  padding: .1rem .48rem; font-size: .62rem;
+  color: rgba(255,255,255,.65); letter-spacing: .06em;
+}
+.c-orig-label {
+  font-size: .6rem; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.4); margin-bottom: .28rem;
+}
+.c-name {
+  font-family: var(--serif);
+  font-size: 1.1rem; font-weight: 400; color: #fff; line-height: 1.3;
+}
+.c-en { font-size: .7rem; color: rgba(255,255,255,.35); margin-top: .08rem; }
+.c-body { padding: 1.1rem 1.6rem; flex:1; display:flex; flex-direction:column; gap:.6rem; }
+.c-notes {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .32rem;
+}
+.cn {
+  background: var(--lin); border-radius: 7px;
+  padding: .4rem .42rem; text-align: center;
+}
+.cn.f { border-top: 1.5px solid var(--sauge); }
+.cn.m { border-top: 1.5px solid var(--gold); }
+.cn.b { border-top: 1.5px solid var(--terre); }
+.cn-lbl {
+  font-size: .52rem; letter-spacing: .14em; text-transform: uppercase;
+  display: block; margin-bottom: .15rem;
+}
+.cn.f .cn-lbl { color: var(--sauge); }
+.cn.m .cn-lbl { color: var(--soleil); }
+.cn.b .cn-lbl { color: var(--terre); }
+.cn-v { font-size: .67rem; color: var(--encre); line-height: 1.5; }
+.c-chips { display: flex; flex-wrap: wrap; gap: .25rem; }
+.c-chip {
+  background: var(--lin); border-radius: 5px;
+  padding: .08rem .48rem; font-size: .68rem; color: var(--muted);
+}
+.c-desc {
+  font-size: .82rem; font-weight: 300; color: #5a4030;
+  line-height: 1.75; flex:1; font-style: italic;
+}
+.c-foot {
+  padding: .85rem 1.6rem;
+  border-top: 1px solid var(--lin);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.c-price-wrap { display: flex; flex-direction: column; }
+.c-orig-price { font-size: .72rem; color: var(--pierre); text-decoration: line-through; line-height: 1; }
+.c-price {
+  font-family: var(--serif);
+  font-size: 1.35rem; font-weight: 400; color: var(--ocean);
+}
+.c-controls { display: flex; align-items: center; gap: .45rem; }
+.c-sel {
+  border: 1px solid var(--pierre); border-radius: 7px;
+  padding: .28rem .45rem; font-size: .76rem;
+  background: var(--lin); color: var(--encre); cursor: pointer;
+}
+.c-add {
+  background: var(--ocean); color: var(--blanc); border: none;
+  border-radius: 8px; padding: .4rem 1rem;
+  font-size: .78rem; font-weight: 300; letter-spacing: .06em;
+  transition: background .22s, transform .15s;
+}
+.c-add:hover { background: var(--deep); transform: scale(1.04); }
+.c-add.hp { background: var(--gold); color: var(--deep); }
+.c-add.hp:hover { background: var(--gold-hi); }
+
+/* ══════════════════════════════════════════════
+   DELIVERY
+══════════════════════════════════════════════ */
+.delivery {
+  background: linear-gradient(135deg, var(--ocean) 0%, var(--tide) 100%);
+  color: var(--blanc); text-align: center;
+  padding: 3.5rem max(2rem, calc(50vw - 580px));
+  position: relative; overflow: hidden;
+}
+.delivery::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 28px,
+    rgba(255,255,255,.015) 29px, transparent 30px
+  );
+  pointer-events: none;
+}
+.delivery strong {
+  font-family: var(--serif);
+  font-size: 1.3rem; font-weight: 300;
+  color: var(--gold-hi); display: block; margin-bottom: .5rem;
+}
+.delivery p {
+  font-size: .86rem; font-weight: 300;
+  color: rgba(192,216,232,.6); line-height: 2.2;
+}
+.delivery em {
+  font-style: italic; font-family: var(--serif);
+  color: rgba(192,216,232,.45); display: block;
+  font-size: .92rem; margin-top: .5rem;
+}
+
+/* ══════════════════════════════════════════════
+   CART
+══════════════════════════════════════════════ */
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(9,24,42,.6);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+}
+.overlay.open { display: block; }
+.cart-panel {
+  position: fixed; top: 0; right: -480px;
+  width: min(480px, 100vw); height: 100%;
+  background: var(--blanc); z-index: 1001;
+  display: flex; flex-direction: column;
+  transition: right .4s var(--ease-out);
+  box-shadow: -12px 0 48px rgba(9,24,42,.15);
+}
+.cart-panel.open { right: 0; }
+.cart-head {
+  background: var(--deep); color: var(--blanc);
+  padding: 1.2rem 1.6rem;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid rgba(106,176,200,.1);
+}
+.cart-head h2 {
+  font-family: var(--serif);
+  font-size: 1rem; font-weight: 300; letter-spacing: .12em;
+}
+.cart-x { background: none; border: none; color: rgba(192,216,232,.35); font-size: 1.2rem; transition: color .2s; }
+.cart-x:hover { color: var(--blanc); }
+.cart-items { flex:1; overflow-y: auto; padding: 1rem 1.6rem; }
+.cart-empty {
+  text-align: center; color: var(--muted); padding: 4rem 0;
+  font-size: .86rem; font-weight: 300; line-height: 2.4;
+}
+.ci {
+  display: flex; gap: .8rem; padding: .9rem 0;
+  border-bottom: 1px solid var(--lin);
+}
+.ci-info { flex:1; }
+.ci-name { font-size: .88rem; font-weight: 400; color: var(--encre); }
+.ci-half {
+  font-size: .6rem; font-weight: 500; background: var(--gold); color: var(--deep);
+  border-radius: 3px; padding: .04rem .28rem; margin-left: .3rem;
+}
+.ci-w { font-size: .72rem; color: var(--muted); margin-top: .04rem; }
+.ci-qty { display: flex; align-items: center; gap: .4rem; margin-top: .4rem; }
+.qb {
+  width: 26px; height: 26px; border-radius: 6px;
+  border: 1px solid var(--pierre); background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .92rem; color: var(--muted); transition: background .15s;
+}
+.qb:hover { background: var(--lin); color: var(--encre); }
+.ci-right { display: flex; flex-direction: column; align-items: flex-end; gap: .3rem; padding-top: .1rem; }
+.ci-price { font-family: var(--serif); font-size: 1.05rem; font-weight: 400; color: var(--ocean); }
+.ci-rm { background: none; border: none; color: var(--pierre); font-size: .9rem; transition: color .2s; }
+.ci-rm:hover { color: #8b2020; }
+.cart-foot { padding: 1rem 1.6rem; border-top: 1px solid var(--pierre); background: #fff; }
+.cart-total-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.1rem; font-size: .88rem; color: var(--muted); }
+.cart-total-row strong { font-family: var(--serif); font-size: 1.4rem; color: var(--ocean); }
+.oform { display: flex; flex-direction: column; gap: .55rem; }
+.oform input, .oform select, .oform textarea {
+  width: 100%; padding: .55rem .85rem;
+  border: 1px solid var(--pierre); border-radius: 8px;
+  font-family: var(--sans); font-size: .84rem;
+  background: var(--lin); color: var(--encre);
+  transition: border-color .2s;
+}
+.oform input:focus, .oform select:focus, .oform textarea:focus {
+  outline: none; border-color: var(--azure);
+}
+.oform textarea { resize: vertical; min-height: 50px; }
+.oform-note { font-size: .7rem; color: var(--muted); text-align: center; }
+.oform-err { font-size: .72rem; color: #b02020; }
+.submit-btn {
+  width: 100%; padding: .78rem; border: none;
+  border-radius: 9px; background: var(--ocean); color: var(--blanc);
+  font-size: .88rem; font-weight: 300; letter-spacing: .1em;
+  transition: background .22s, transform .15s;
+}
+.submit-btn:hover { background: var(--deep); transform: scale(1.01); }
+
+/* ══════════════════════════════════════════════
+   MODAL
+══════════════════════════════════════════════ */
+.modal-bg {
+  display: none; position: fixed; inset: 0;
+  background: rgba(9,24,42,.65);
+  backdrop-filter: blur(10px);
+  z-index: 2000; align-items: center; justify-content: center;
+}
+.modal-bg.open { display: flex; }
+.modal {
+  background: var(--blanc); border-radius: 20px;
+  padding: 3rem 2.4rem; max-width: 380px; width: 90%;
+  text-align: center;
+  box-shadow: 0 32px 80px rgba(9,24,42,.25);
+}
+.modal-icon { font-size: 2.4rem; margin-bottom: .9rem; }
+.modal h3 { font-family: var(--serif); font-size: 1.5rem; font-weight: 300; color: var(--ocean); margin-bottom: .6rem; }
+.modal p { font-size: .86rem; color: var(--muted); line-height: 1.95; }
+.modal-cta {
+  margin-top: 1.6rem; padding: .68rem 2rem;
+  background: var(--ocean); color: var(--blanc); border: none;
+  border-radius: 9px; font-size: .86rem; font-weight: 300; letter-spacing: .1em;
+  transition: background .22s;
+}
+.modal-cta:hover { background: var(--deep); }
+
+/* ══════════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════════ */
+.toast {
+  position: fixed; bottom: 2rem; left: 50%;
+  transform: translateX(-50%) translateY(70px);
+  background: var(--deep); color: var(--blanc);
+  border: 1px solid rgba(106,176,200,.2);
+  border-radius: 40px; padding: .58rem 1.6rem;
+  font-size: .8rem; font-weight: 300; letter-spacing: .06em;
+  opacity: 0; pointer-events: none; white-space: nowrap;
+  z-index: 3000;
+  transition: transform .4s var(--ease-spring), opacity .3s;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+footer {
+  background: var(--deep);
+  padding: 3rem max(2rem, calc(50vw - 580px));
+  text-align: center;
+  border-top: 1px solid rgba(106,176,200,.05);
+}
+.footer-logo {
+  font-family: var(--serif);
+  font-size: 1.4rem; font-weight: 300; font-style: italic;
+  color: rgba(212,168,64,.5); letter-spacing: .2em;
+  margin-bottom: .6rem;
+}
+footer p {
+  font-size: .74rem; font-weight: 300;
+  color: rgba(192,216,232,.2); letter-spacing: .1em; line-height: 2.4;
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media(max-width:640px){
+  .nav-links { display: none; }
+  .phi-points { grid-template-columns: 1fr 1fr; }
+  .c-foot { flex-wrap: wrap; gap: .5rem; }
+  .iced-grid { grid-template-columns: 1fr; }
+  .pass-grid { grid-template-columns: 1fr; }
+  .nav { padding: 0 1.5rem; }
+}
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-logo">慢 <span>沖</span></div>
+<!-- ══ NAV ════════════════════════════════════ -->
+<nav class="nav" id="main-nav">
+  <div class="nav-logo">Lentement <em>慢沖</em></div>
   <div class="nav-links">
     <a href="#today">今日半價</a>
-    <a href="#pass">月票</a>
     <a href="#iced">花式冰飲</a>
+    <a href="#pass">月票</a>
     <a href="#menu">菜單</a>
   </div>
   <button class="nav-cart" onclick="openCart()">
-    購物車 <span class="cart-badge" id="cart-count">0</span>
+    Panier &nbsp;<span class="cart-badge" id="cart-count">0</span>
   </button>
 </nav>
 
-<!-- HERO -->
+<!-- ══ HERO ═══════════════════════════════════ -->
 <section class="hero">
-  <div class="hero-grain"></div>
-  <div class="hero-glow"></div>
-  <p class="hero-eyebrow reveal">Pour Over · Single Origin · Artisan · 大安 · 信義</p>
-  <h1 class="reveal">不心悸<br><em>只對生命的悸動</em></h1>
-  <div class="hero-rule reveal"></div>
-  <p class="hero-tagline reveal">
-    廉價咖啡讓你焦慮顫抖<br>
-    我們讓你安靜地，感受到活著的美好
-  </p>
-  <div class="hero-badges reveal">
-    <span class="badge primary">🚴 大安・信義 免費外送</span>
-    <span class="badge">☕ 咖啡師手沖</span>
-    <span class="badge">🌿 世界莊園單品</span>
-    <span class="badge">✦ 每日輪流半價</span>
+  <div class="hero-sky"></div>
+  <div class="hero-sun"></div>
+  <div class="hero-rays"></div>
+  <div class="hero-shimmer"></div>
+  <div class="hero-window">
+    <div class="mullion-v2" style="left:25%"></div>
+    <div class="mullion-v2" style="left:75%"></div>
   </div>
-  <p class="hero-footnote reveal">精品不必昂貴 · 好咖啡值得每天喝 · 最低消費 NT$150</p>
-  <div class="hero-scroll-hint">
+  <div class="hero-vignette"></div>
+
+  <div class="hero-content">
+    <p class="hero-kicker reveal">Café · Côte d'Azur · 大安 · 信義 · Pour Over</p>
+    <h1 class="hero-title reveal">
+      慢 沖
+      <em>Lentement</em>
+    </h1>
+    <p class="hero-subtitle reveal">
+      不心悸，只對生命的悸動<br>
+      <span style="font-size:.85em;opacity:.7">落地窗前，咖啡師手沖的那一縷香</span>
+    </p>
+    <div class="hero-badges reveal">
+      <span class="hbadge cta">🚴 大安・信義 免費外送</span>
+      <span class="hbadge">☕ 咖啡師手沖</span>
+      <span class="hbadge">🌿 世界莊園單品</span>
+      <span class="hbadge">✦ 每日輪流半價</span>
+    </div>
+  </div>
+  <div class="hero-scroll">
     <div class="scroll-line"></div>
-    <span>SCROLL</span>
+    <span class="scroll-text">Découvrir</span>
   </div>
 </section>
 
-<!-- TODAY HALF PRICE -->
-<section class="section" id="today">
-  <p class="eyebrow">Daily Special · 今日特選</p>
-  <h2 class="section-heading">今日咖啡師推薦<br><em>半價品鑑</em></h2>
-  <p class="section-sub" style="margin-bottom:.4rem">每天輪替不同產區，讓你以最划算的方式探索世界咖啡地圖</p>
-  <p class="hp-timer" id="hp-timer"></p>
+<!-- ══ INTRO STRIP ════════════════════════════ -->
+<div class="intro-strip">
+  <blockquote class="reveal">
+    「廉價咖啡讓你焦慮顫抖<br>
+    我們讓你安靜地，感受到活著的美好」
+  </blockquote>
+  <cite>— Lentement 慢沖，台北</cite>
+</div>
+
+<!-- ══ TODAY HALF PRICE ═══════════════════════ -->
+<section class="section" id="today" style="background:var(--blanc)">
+  <div class="section-header">
+    <p class="eyebrow reveal">Daily Special · 今日特選</p>
+    <h2 class="s-title reveal">今日咖啡師推薦 &nbsp;<em>半價品鑑</em></h2>
+    <div class="s-rule"></div>
+    <p class="s-sub reveal">每天輪替不同產區，讓你以最划算的方式探索世界咖啡地圖</p>
+    <p class="hp-timer" id="hp-timer"></p>
+  </div>
   <div class="hp-row" id="hp-cards"></div>
 </section>
 
-<!-- PHILOSOPHY -->
-<section class="section section-dark" id="why">
+<!-- ══ PHILOSOPHY ═════════════════════════════ -->
+<section class="section phi-section" id="why">
+  <div class="phi-ocean-top"></div>
   <div class="phi-grid">
-    <div class="phi-left reveal">
-      <p class="eyebrow">Our Philosophy</p>
-      <h2 class="section-heading" style="color:var(--cream)">高級手沖<br><em>不是奢侈，是日常</em></h2>
+    <div class="reveal-left">
+      <p class="eyebrow light">Notre Philosophie · 我們的信念</p>
+      <h2 class="s-title on-dark">高級手沖<br><em>不是奢侈</em><br>是日常</h2>
       <p class="phi-body">
         市場上充斥著廉價豆、超高溫快速萃取、大量糖精掩蓋苦澀的咖啡。那種咖啡讓你心跳加速、手心冒汗，卻得不到任何美好的感受。<br><br>
-        我們只用世界莊園商業單品豆，咖啡師以手沖精確控制水溫與節奏，每一杯都是對咖啡的尊重，也是對你身體的溫柔。
+        我們只用世界莊園商業單品豆，咖啡師精確控溫手沖，每一杯都是對咖啡的尊重，也是對你身體最輕柔的問候。
       </p>
     </div>
-    <div class="phi-right reveal">
-      <div class="phi-point"><div class="phi-point-icon">🌡</div><div class="phi-point-text">精確控溫<br>90 – 96°C</div></div>
-      <div class="phi-point"><div class="phi-point-icon">⚗️</div><div class="phi-point-text">現點現磨<br>不隔夜</div></div>
-      <div class="phi-point"><div class="phi-point-icon">🚫</div><div class="phi-point-text">無人工香料<br>無糖漿</div></div>
-      <div class="phi-point"><div class="phi-point-icon">🤲</div><div class="phi-point-text">咖啡師<br>親手沖製</div></div>
-      <div class="phi-point"><div class="phi-point-icon">🌍</div><div class="phi-point-text">可溯源<br>莊園豆款</div></div>
-      <div class="phi-point"><div class="phi-point-icon">🔥</div><div class="phi-point-text">低溫慢烘<br>保留風土</div></div>
+    <div class="phi-points reveal-right">
+      <div class="phi-pt"><div class="phi-pt-icon">🌡</div><div class="phi-pt-text">精確控溫<br>90–96°C</div></div>
+      <div class="phi-pt"><div class="phi-pt-icon">⚗️</div><div class="phi-pt-text">現點現磨<br>不隔夜</div></div>
+      <div class="phi-pt"><div class="phi-pt-icon">🚫</div><div class="phi-pt-text">無人工香料<br>無糖漿</div></div>
+      <div class="phi-pt"><div class="phi-pt-icon">🤲</div><div class="phi-pt-text">咖啡師<br>親手沖製</div></div>
+      <div class="phi-pt"><div class="phi-pt-icon">🌍</div><div class="phi-pt-text">可溯源<br>莊園豆款</div></div>
+      <div class="phi-pt"><div class="phi-pt-icon">🔥</div><div class="phi-pt-text">低溫慢烘<br>保留風土</div></div>
     </div>
   </div>
 </section>
 
-<!-- MONTHLY PASS -->
-<section class="section section-parchment" id="pass">
-  <div class="section-header reveal">
-    <p class="eyebrow">Coffee Pass · 咖啡月票</p>
-    <h2 class="section-heading">每天一杯<br><em>比罐裝咖啡還便宜</em></h2>
-    <p class="section-sub">喝到真正的精品手沖，讓好咖啡成為你的日常</p>
+<!-- ══ ICED DRINKS ════════════════════════════ -->
+<section class="section iced-wrap" id="iced">
+  <div class="iced-bg"></div>
+  <div class="section-header">
+    <p class="eyebrow reveal" style="color:var(--seafoam)">Signature Glacé · 花式特調冰飲</p>
+    <h2 class="s-title on-dark reveal">咖啡師私房冰飲<br><em style="color:#7ee0f8">超越咖啡的邊界</em></h2>
+    <div class="s-rule" style="background:var(--seafoam)"></div>
+    <p class="s-sub on-dark reveal">以手沖單品為靈魂，融入茶、氣泡、花香——讓每一杯都是一次小小的驚喜</p>
+  </div>
+  <div class="iced-grid" id="iced-grid"></div>
+</section>
+
+<!-- ══ MONTHLY PASS ═══════════════════════════ -->
+<section class="section pass-section" id="pass">
+  <div class="section-header">
+    <p class="eyebrow warm reveal">Abonnement · 咖啡月票</p>
+    <h2 class="s-title reveal">每天一杯<br><em style="color:var(--terre)">比罐裝咖啡還便宜</em></h2>
+    <div class="s-rule" style="background:var(--terre);opacity:.3"></div>
+    <p class="s-sub reveal">喝到真正的精品手沖，讓好咖啡成為你的日常</p>
   </div>
   <div class="pass-grid">
     <div class="pass-card reveal">
+      <div class="pass-top-line"></div>
       <div class="pass-icon">🌱</div>
       <div class="pass-name">探索月票</div>
       <div class="pass-cups">每月 10 杯（200ml）</div>
-      <div class="pass-price-row">
-        <span class="pass-price">980</span>
-        <span class="pass-period">NT$ / 月</span>
-      </div>
+      <div class="pass-price-wrap"><span class="pass-price">980</span><span class="pass-period"> NT$ / 月</span></div>
       <div class="pass-saving">每杯只要 NT$98 · 省下約 NT$620</div>
       <div class="pass-divider"></div>
       <ul class="pass-features">
@@ -904,17 +1088,15 @@
         <li>每日半價再享九折</li>
         <li>咖啡師備註研磨粗細</li>
       </ul>
-      <button class="pass-btn" onclick="buyPass('探索月票', 980)">立即訂閱</button>
+      <button class="pass-btn" onclick="buyPass('探索月票',980)">立即訂閱</button>
     </div>
     <div class="pass-card featured reveal">
+      <div class="pass-featured-line"></div>
       <div class="pass-popular">★ 最受歡迎</div>
       <div class="pass-icon">☕</div>
       <div class="pass-name">日常月票</div>
       <div class="pass-cups">每月 20 杯（200ml）</div>
-      <div class="pass-price-row">
-        <span class="pass-price">1,680</span>
-        <span class="pass-period">NT$ / 月</span>
-      </div>
+      <div class="pass-price-wrap"><span class="pass-price">1,680</span><span class="pass-period"> NT$ / 月</span></div>
       <div class="pass-saving">每杯只要 NT$84 · 省下約 NT$1,520</div>
       <div class="pass-divider"></div>
       <ul class="pass-features">
@@ -924,16 +1106,14 @@
         <li>優先排單，提前 15 分鐘送達</li>
         <li>生日當月贈送一杯藝妓</li>
       </ul>
-      <button class="pass-btn" onclick="buyPass('日常月票', 1680)">立即訂閱</button>
+      <button class="pass-btn" onclick="buyPass('日常月票',1680)">立即訂閱</button>
     </div>
     <div class="pass-card reveal">
+      <div class="pass-top-line"></div>
       <div class="pass-icon">✦</div>
       <div class="pass-name">無限月票</div>
       <div class="pass-cups">當月無限杯（每日上限 3 杯）</div>
-      <div class="pass-price-row">
-        <span class="pass-price">3,200</span>
-        <span class="pass-period">NT$ / 月</span>
-      </div>
+      <div class="pass-price-wrap"><span class="pass-price">3,200</span><span class="pass-period"> NT$ / 月</span></div>
       <div class="pass-saving">20 杯以上即回本 · 咖啡師的最愛</div>
       <div class="pass-divider"></div>
       <ul class="pass-features">
@@ -944,407 +1124,378 @@
         <li>優先體驗新豆款</li>
         <li>生日當月贈送藍山 No.1</li>
       </ul>
-      <button class="pass-btn" onclick="buyPass('無限月票', 3200)">立即訂閱</button>
+      <button class="pass-btn" onclick="buyPass('無限月票',3200)">立即訂閱</button>
     </div>
   </div>
 </section>
 
-<!-- ICED SPECIALS -->
-<section class="iced-section" id="iced">
-  <div class="iced-bg-glow"></div>
-  <div class="section-header reveal">
-    <p class="eyebrow">Signature Iced · 花式特調</p>
-    <h2 class="section-heading">咖啡師私房冰飲<br><em>超越咖啡的邊界</em></h2>
-    <p class="section-sub">以手沖單品為靈魂，融入茶、氣泡、花香——讓每一杯都是一次小小的驚喜</p>
+<!-- ══ MENU ═══════════════════════════════════ -->
+<section class="section menu-wrap" id="menu">
+  <div class="section-header">
+    <p class="eyebrow reveal">Single Origin · 世界單品</p>
+    <h2 class="s-title reveal">咖啡師精選菜單</h2>
+    <div class="s-rule"></div>
+    <p class="s-sub reveal">每杯現點現磨現沖 · 附前調・中調・後調品飲說明</p>
   </div>
-  <div class="iced-grid" id="iced-grid"></div>
+  <div class="filter-row">
+    <button class="fbtn on" onclick="filterMenu('all',this)">Tout · 全部</button>
+    <button class="fbtn" onclick="filterMenu('Africa',this)">Afrique · 非洲</button>
+    <button class="fbtn" onclick="filterMenu('Americas',this)">Amériques · 美洲</button>
+    <button class="fbtn" onclick="filterMenu('Asia',this)">Asie · 亞洲</button>
+    <button class="fbtn" onclick="filterMenu('premium',this)">Prestige · 珍稀</button>
+  </div>
+  <div class="c-grid" id="c-grid"></div>
 </section>
 
-<!-- MENU -->
-<section class="section menu-section" id="menu">
-  <div class="section-header reveal">
-    <p class="eyebrow">Single Origin Menu · 商業單品</p>
-    <h2 class="section-heading">世界產區咖啡菜單</h2>
-    <p class="section-sub">咖啡師精選 · 每杯現點現磨現沖 · 附前中後調品飲說明</p>
-  </div>
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterMenu('all',this)">全部</button>
-    <button class="filter-btn" onclick="filterMenu('Africa',this)">非洲</button>
-    <button class="filter-btn" onclick="filterMenu('Americas',this)">美洲</button>
-    <button class="filter-btn" onclick="filterMenu('Asia',this)">亞洲・太平洋</button>
-    <button class="filter-btn" onclick="filterMenu('premium',this)">頂級珍稀</button>
-  </div>
-  <div class="coffee-grid" id="coffee-grid"></div>
-</section>
-
-<!-- DELIVERY -->
-<div class="delivery-strip">
+<!-- ══ DELIVERY ═══════════════════════════════ -->
+<div class="delivery">
   <strong>🚴 大安區・信義區 免費外送</strong>
-  <p>下單後 30–50 分鐘 · 咖啡師手沖完成立即出發 · 最低消費 NT$150<br>
-  不心悸，只對生命的悸動 — 每一杯都是咖啡師寫給你的信</p>
+  <p>下單後 30–50 分鐘 · 咖啡師手沖完成立即出發 · 最低消費 NT$150</p>
+  <em>不心悸，只對生命的悸動 — 每一杯都是咖啡師寫給你的信</em>
 </div>
 
-<!-- TOAST -->
+<!-- ══ UI ═════════════════════════════════════ -->
 <div class="toast" id="toast"></div>
 <div class="overlay" id="overlay" onclick="closeCart()"></div>
 
-<!-- CART PANEL -->
 <div class="cart-panel" id="cart-panel">
   <div class="cart-head">
-    <h2>購物車</h2>
-    <button class="cart-close" onclick="closeCart()">✕</button>
+    <h2>Panier · 購物車</h2>
+    <button class="cart-x" onclick="closeCart()">✕</button>
   </div>
   <div class="cart-items" id="cart-items">
-    <div class="cart-empty" id="cart-empty">
-      購物車是空的<br>
-      <span style="font-size:.78rem">去挑一杯讓你悸動的咖啡吧</span>
-    </div>
+    <div class="cart-empty" id="cart-empty">購物車是空的<br><span style="font-size:.78rem">去挑一杯讓你悸動的咖啡吧</span></div>
   </div>
   <div class="cart-foot">
-    <div class="cart-total-row">
-      <span>合計</span>
-      <strong id="cart-total">NT$0</strong>
-    </div>
-    <form class="order-form" id="order-form" onsubmit="submitOrder(event)">
-      <input type="text" id="f-name"  placeholder="姓名 *" required />
-      <input type="tel"  id="f-phone" placeholder="手機 * (09xxxxxxxx)" required pattern="09\d{8}" />
-      <select id="f-district" required>
+    <div class="cart-total-row"><span>合計 Total</span><strong id="cart-total">NT$0</strong></div>
+    <form class="oform" id="oform" onsubmit="submitOrder(event)">
+      <input type="text" id="fn" placeholder="姓名 *" required />
+      <input type="tel" id="fp" placeholder="手機 * (09xxxxxxxx)" required pattern="09\d{8}" />
+      <select id="fd" required>
         <option value="">行政區 *</option>
         <option value="大安區">大安區</option>
         <option value="信義區">信義區</option>
       </select>
-      <input type="text" id="f-addr" placeholder="詳細地址 * （路段・樓層）" required />
-      <textarea id="f-note" placeholder="備註（研磨粗細、溫度偏好…）"></textarea>
-      <p class="form-note">免費外送限大安區・信義區 · 最低消費 NT$150</p>
-      <div id="form-err" class="form-err" style="display:none"></div>
-      <button type="submit" class="submit-btn">確認下單</button>
+      <input type="text" id="fa" placeholder="詳細地址 * （路段・樓層）" required />
+      <textarea id="fnote" placeholder="備註（研磨粗細、溫度偏好…）"></textarea>
+      <p class="oform-note">免費外送限大安區・信義區 · 最低消費 NT$150</p>
+      <div id="oerr" class="oform-err" style="display:none"></div>
+      <button type="submit" class="submit-btn">Confirmer · 確認下單</button>
     </form>
   </div>
 </div>
 
-<!-- SUCCESS MODAL -->
 <div class="modal-bg" id="modal-bg">
   <div class="modal">
     <div class="modal-icon">☕</div>
-    <h3>訂單已送出</h3>
+    <h3>Merci · 訂單已送出</h3>
     <p id="modal-msg"></p>
     <button class="modal-cta" onclick="closeModal()">期待這杯悸動</button>
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
-  <strong>慢沖 · 精品手沖咖啡外送</strong><br>
-  台北市大安區・信義區 免費外送 · 09:00 – 21:00 每日<br>
-  不心悸，只對生命的悸動<br>
-  © 2025 慢沖咖啡
+  <div class="footer-logo">Lentement · 慢沖</div>
+  <p>
+    台北市大安區・信義區 免費外送 · 09:00 – 21:00 每日<br>
+    不心悸，只對生命的悸動<br>
+    © 2025 Lentement 慢沖咖啡
+  </p>
 </footer>
 
+<!-- ══════════════════════════════════════════
+   SCRIPT
+══════════════════════════════════════════ -->
 <script>
-/* ═══════════════ DATA ═══════════════════════════ */
+/* ── DATA ───────────────────────────────────── */
 const coffees = [
-  { id:1,  name:"耶加雪菲 G1 水洗",   en:"Yirgacheffe G1 Washed",    origin:"衣索比亞", region:"Africa",   process:"水洗",   flavor:["茉莉花香","佛手柑","蜂蜜","茶感"],
-    notes:{ front:["茉莉","檸檬皮"], mid:["佛手柑","柑橘蜜"], back:["白茶","回甘清甜"] },
-    desc:"非洲精品豆代名詞，明亮果酸帶有花香，是手沖最經典的選擇，每一口都像一首清晨的詩。", prices:{"200ml":160,"400ml":300}, premium:false },
-  { id:2,  name:"西達摩 日曬",        en:"Sidamo Natural",           origin:"衣索比亞", region:"Africa",   process:"日曬",   flavor:["藍莓","黑醋栗","深可可","酒香"],
-    notes:{ front:["藍莓","覆盆子"], mid:["黑醋栗","可可碎"], back:["酒釀","深沉悠長"] },
-    desc:"日曬豆特有的莓果發酵風味，厚重酒體伴隨巧克力尾韻，有種午後慵懶的浪漫。", prices:{"200ml":150,"400ml":280}, premium:false },
-  { id:3,  name:"古吉 自然處理",      en:"Guji Natural",             origin:"衣索比亞", region:"Africa",   process:"自然",   flavor:["草莓果醬","水蜜桃","玫瑰","柔順"],
-    notes:{ front:["草莓果醬","水蜜桃"], mid:["玫瑰","荔枝"], back:["蜂蜜","柔順甜感"] },
-    desc:"古吉高地的草莓果醬甜感，讓人毫無防備地愛上，是適合陪伴閱讀的一杯溫柔。", prices:{"200ml":175,"400ml":330}, premium:false },
-  { id:4,  name:"慧蘭 水洗",         en:"Huila Washed",             origin:"哥倫比亞", region:"Americas", process:"水洗",   flavor:["焦糖","紅蘋果","核桃","奶油"],
-    notes:{ front:["紅蘋果","柑橘皮"], mid:["焦糖","核桃"], back:["奶油","乾淨回韻"] },
-    desc:"哥倫比亞南部最知名產區，均衡而溫潤，像一個老朋友——永遠不會讓你失望。", prices:{"200ml":150,"400ml":280}, premium:false },
-  { id:5,  name:"娜玲瓏 蜜處理",      en:"Nariño Honey",             origin:"哥倫比亞", region:"Americas", process:"蜜處理", flavor:["黃桃","太妃糖","柑橘皮","細膩"],
-    notes:{ front:["黃桃","芒果"], mid:["太妃糖","柑橘皮"], back:["細膩甜感","持久回甘"] },
-    desc:"蜜處理工法帶出果皮的天然甜感，比水洗更飽滿，喝到最後一口都是微笑。", prices:{"200ml":160,"400ml":300}, premium:false },
-  { id:6,  name:"肯亞 AA 水洗",      en:"Kenya AA Washed",          origin:"肯亞",    region:"Africa",   process:"水洗",   flavor:["黑醋栗","番茄","葡萄柚","酒釀"],
-    notes:{ front:["葡萄柚","番茄"], mid:["黑醋栗","莓果酸"], back:["酒釀","活潑餘韻"] },
-    desc:"肯亞最高等級豆款，雙重發酵賦予犀利果酸與複雜風味，是讓味蕾清醒的一杯。", prices:{"200ml":180,"400ml":340}, premium:false },
-  { id:7,  name:"布塔雷 水洗",       en:"Butare Washed",            origin:"盧安達",  region:"Africa",   process:"水洗",   flavor:["黑糖梅子","馬鞭草","烏龍茶","優雅"],
-    notes:{ front:["馬鞭草","柑橘花"], mid:["烏龍茶","黑糖梅"], back:["優雅茶感","綿長"] },
-    desc:"非洲新星，茶感與花香交融，清新脫俗，是咖啡中最接近一首詩的存在。", prices:{"200ml":165,"400ml":310}, premium:false },
-  { id:8,  name:"安提瓜 水洗",       en:"Antigua Washed",           origin:"瓜地馬拉", region:"Americas", process:"水洗",   flavor:["黑巧克力","橙皮","堅果","煙燻"],
-    notes:{ front:["橙皮","黑巧克力"], mid:["榛果","焦糖"], back:["煙燻","苦甜悠長"] },
-    desc:"火山土壤孕育的煙燻感搭配深沉巧克力尾韻，個性鮮明，是不需要解釋的那種自信。", prices:{"200ml":140,"400ml":260}, premium:false },
-  { id:9,  name:"塔拉珠 水洗",       en:"Tarrazú Washed",           origin:"哥斯大黎加",region:"Americas",process:"水洗",   flavor:["蜂蜜柚子","紅糖","奶油","溫暖"],
-    notes:{ front:["柚子","柑橘皮"], mid:["蜂蜜","奶油"], back:["紅糖","溫暖甜感"] },
-    desc:"哥斯大黎加最優質產區，乾淨明亮帶有柑橘蜂蜜氣息，是讓人心情變好的那種咖啡。", prices:{"200ml":160,"400ml":300}, premium:false },
-  { id:10, name:"聖塔芭芭拉 蜜處理", en:"Santa Barbara Honey",      origin:"宏都拉斯", region:"Americas", process:"蜜處理", flavor:["芒果","木瓜","紅砂糖","熱帶果"],
-    notes:{ front:["芒果","百香果"], mid:["木瓜","紅砂糖"], back:["熱帶甜感","陽光尾韻"] },
-    desc:"中美洲新興產區，熱帶水果的豐盛甜感，充滿陽光氣息，像一個夏天的傍晚。", prices:{"200ml":145,"400ml":270}, premium:false },
-  { id:11, name:"喜拉朵 日曬",       en:"Cerrado Natural",          origin:"巴西",    region:"Americas", process:"日曬",   flavor:["榛果","牛奶巧克力","杏仁","低酸"],
-    notes:{ front:["榛果","杏仁"], mid:["牛奶巧克力","紅糖"], back:["低酸圓潤","溫柔尾韻"] },
-    desc:"巴西最大精品咖啡產區，低酸醇厚，是那種讓人完全放鬆的咖啡，適合每個平凡而珍貴的下午。", prices:{"200ml":130,"400ml":240}, premium:false },
-  { id:12, name:"蘇門答臘 曼特寧",   en:"Sumatra Mandheling",       origin:"印尼",    region:"Asia",     process:"濕刨法", flavor:["深烘培","松木","泥土","草本"],
-    notes:{ front:["松木","草本"], mid:["泥土","深烘焙香"], back:["渾厚大地","悠長"] },
-    desc:"印尼獨特濕刨法帶來渾厚大地氣息，低酸高醇厚度，是有故事的人才會懂的一杯。", prices:{"200ml":150,"400ml":280}, premium:false },
-  { id:13, name:"耶門 摩卡 馬塔里",  en:"Yemen Mocha Mattari",      origin:"葉門",    region:"Asia",     process:"自然乾燥",flavor:["深可可","香料","野生果","悠長"],
-    notes:{ front:["野生莓果","香料"], mid:["深可可","肉桂"], back:["酒釀","古老悠長"] },
-    desc:"世界上最古老的咖啡產地，野性而複雜的香料氣息，帶著幾千年的歷史在你的杯中甦醒。", prices:{"200ml":220,"400ml":420}, premium:false },
-  { id:14, name:"藝妓 水洗",        en:"Geisha Washed",            origin:"巴拿馬",  region:"Americas", process:"水洗",   flavor:["茉莉","佛手柑","白桃","絲滑"],
-    notes:{ front:["茉莉","玫瑰"], mid:["佛手柑","白桃"], back:["花蜜","絲滑悠長"] },
-    desc:"世界最受推崇的品種。花香與果香的極致展現，一杯讓你相信這個世界有真正美好的事物。", prices:{"200ml":320,"400ml":600}, premium:true  },
-  { id:15, name:"藍山 No.1",        en:"Blue Mountain No.1",       origin:"牙買加",  region:"Americas", process:"水洗",   flavor:["奶油","細緻花香","淡苦","極均衡"],
-    notes:{ front:["細緻花香","奶油"], mid:["核桃","淡苦"], back:["極均衡","綿綿不絕"] },
-    desc:"全球最知名咖啡之一，風味極其均衡細緻，幾乎無雜味——有些事情不需要解釋，喝了就懂。", prices:{"200ml":450,"400ml":860}, premium:true  },
-  { id:16, name:"可納 Extra Fancy", en:"Kona Extra Fancy",         origin:"夏威夷",  region:"Asia",     process:"水洗",   flavor:["澳門蛋撻","堅果甜","淡果酸","圓潤"],
-    notes:{ front:["奶油蛋撻","蜂蜜"], mid:["夏威夷果","淡花香"], back:["淡果酸","海風清甜"] },
-    desc:"夏威夷火山地帶的稀有豆款，溫潤甜感帶有堅果香，每一口都像是站在海邊看日出。", prices:{"200ml":400,"400ml":760}, premium:true  },
+  {id:1, name:"耶加雪菲 G1 水洗",en:"Yirgacheffe G1 Washed",origin:"衣索比亞",region:"Africa",process:"水洗",
+   flavor:["茉莉花香","佛手柑","蜂蜜","茶感"],notes:{front:["茉莉","檸檬皮"],mid:["佛手柑","柑橘蜜"],back:["白茶","回甘清甜"]},
+   desc:"非洲精品豆代名詞，明亮果酸帶有花香，是手沖最經典的選擇，每一口都像一首清晨的詩。",prices:{"200ml":160,"400ml":300},premium:false},
+  {id:2, name:"西達摩 日曬",en:"Sidamo Natural",origin:"衣索比亞",region:"Africa",process:"日曬",
+   flavor:["藍莓","黑醋栗","深可可","酒香"],notes:{front:["藍莓","覆盆子"],mid:["黑醋栗","可可碎"],back:["酒釀","深沉悠長"]},
+   desc:"日曬豆特有的莓果發酵風味，厚重酒體伴隨巧克力尾韻，有種午後慵懶的浪漫。",prices:{"200ml":150,"400ml":280},premium:false},
+  {id:3, name:"古吉 自然處理",en:"Guji Natural",origin:"衣索比亞",region:"Africa",process:"自然",
+   flavor:["草莓果醬","水蜜桃","玫瑰","柔順"],notes:{front:["草莓果醬","水蜜桃"],mid:["玫瑰","荔枝"],back:["蜂蜜","柔順甜感"]},
+   desc:"古吉高地的草莓果醬甜感，讓人毫無防備地愛上，是適合陪伴閱讀的一杯溫柔。",prices:{"200ml":175,"400ml":330},premium:false},
+  {id:4, name:"慧蘭 水洗",en:"Huila Washed",origin:"哥倫比亞",region:"Americas",process:"水洗",
+   flavor:["焦糖","紅蘋果","核桃","奶油"],notes:{front:["紅蘋果","柑橘皮"],mid:["焦糖","核桃"],back:["奶油","乾淨回韻"]},
+   desc:"哥倫比亞南部最知名產區，均衡而溫潤，像一個老朋友——永遠不會讓你失望。",prices:{"200ml":150,"400ml":280},premium:false},
+  {id:5, name:"娜玲瓏 蜜處理",en:"Nariño Honey",origin:"哥倫比亞",region:"Americas",process:"蜜處理",
+   flavor:["黃桃","太妃糖","柑橘皮","細膩"],notes:{front:["黃桃","芒果"],mid:["太妃糖","柑橘皮"],back:["細膩甜感","持久回甘"]},
+   desc:"蜜處理工法帶出果皮的天然甜感，比水洗更飽滿，喝到最後一口都是微笑。",prices:{"200ml":160,"400ml":300},premium:false},
+  {id:6, name:"肯亞 AA 水洗",en:"Kenya AA Washed",origin:"肯亞",region:"Africa",process:"水洗",
+   flavor:["黑醋栗","番茄","葡萄柚","酒釀"],notes:{front:["葡萄柚","番茄"],mid:["黑醋栗","莓果酸"],back:["酒釀","活潑餘韻"]},
+   desc:"肯亞最高等級豆款，雙重發酵賦予犀利果酸與複雜風味，是讓味蕾清醒的一杯。",prices:{"200ml":180,"400ml":340},premium:false},
+  {id:7, name:"布塔雷 水洗",en:"Butare Washed",origin:"盧安達",region:"Africa",process:"水洗",
+   flavor:["黑糖梅子","馬鞭草","烏龍茶","優雅"],notes:{front:["馬鞭草","柑橘花"],mid:["烏龍茶","黑糖梅"],back:["優雅茶感","綿長"]},
+   desc:"非洲新星，茶感與花香交融，清新脫俗，是咖啡中最接近一首詩的存在。",prices:{"200ml":165,"400ml":310},premium:false},
+  {id:8, name:"安提瓜 水洗",en:"Antigua Washed",origin:"瓜地馬拉",region:"Americas",process:"水洗",
+   flavor:["黑巧克力","橙皮","堅果","煙燻"],notes:{front:["橙皮","黑巧克力"],mid:["榛果","焦糖"],back:["煙燻","苦甜悠長"]},
+   desc:"火山土壤孕育的煙燻感搭配深沉巧克力尾韻，個性鮮明，是不需要解釋的那種自信。",prices:{"200ml":140,"400ml":260},premium:false},
+  {id:9, name:"塔拉珠 水洗",en:"Tarrazú Washed",origin:"哥斯大黎加",region:"Americas",process:"水洗",
+   flavor:["蜂蜜柚子","紅糖","奶油","溫暖"],notes:{front:["柚子","柑橘皮"],mid:["蜂蜜","奶油"],back:["紅糖","溫暖甜感"]},
+   desc:"哥斯大黎加最優質產區，乾淨明亮帶有柑橘蜂蜜氣息，是讓人心情變好的那種咖啡。",prices:{"200ml":160,"400ml":300},premium:false},
+  {id:10,name:"聖塔芭芭拉 蜜處理",en:"Santa Barbara Honey",origin:"宏都拉斯",region:"Americas",process:"蜜處理",
+   flavor:["芒果","木瓜","紅砂糖","熱帶果"],notes:{front:["芒果","百香果"],mid:["木瓜","紅砂糖"],back:["熱帶甜感","陽光尾韻"]},
+   desc:"中美洲新興產區，熱帶水果的豐盛甜感，充滿陽光氣息，像一個夏天的傍晚。",prices:{"200ml":145,"400ml":270},premium:false},
+  {id:11,name:"喜拉朵 日曬",en:"Cerrado Natural",origin:"巴西",region:"Americas",process:"日曬",
+   flavor:["榛果","牛奶巧克力","杏仁","低酸"],notes:{front:["榛果","杏仁"],mid:["牛奶巧克力","紅糖"],back:["低酸圓潤","溫柔尾韻"]},
+   desc:"巴西最大精品咖啡產區，低酸醇厚，是那種讓人完全放鬆的咖啡，適合每個平凡而珍貴的下午。",prices:{"200ml":130,"400ml":240},premium:false},
+  {id:12,name:"蘇門答臘 曼特寧",en:"Sumatra Mandheling",origin:"印尼",region:"Asia",process:"濕刨法",
+   flavor:["深烘培","松木","泥土","草本"],notes:{front:["松木","草本"],mid:["泥土","深烘焙香"],back:["渾厚大地","悠長"]},
+   desc:"印尼獨特濕刨法帶來渾厚大地氣息，低酸高醇厚度，是有故事的人才會懂的一杯。",prices:{"200ml":150,"400ml":280},premium:false},
+  {id:13,name:"耶門 摩卡 馬塔里",en:"Yemen Mocha Mattari",origin:"葉門",region:"Asia",process:"自然乾燥",
+   flavor:["深可可","香料","野生果","悠長"],notes:{front:["野生莓果","香料"],mid:["深可可","肉桂"],back:["酒釀","古老悠長"]},
+   desc:"世界上最古老的咖啡產地，野性而複雜的香料氣息，帶著幾千年的歷史在你的杯中甦醒。",prices:{"200ml":220,"400ml":420},premium:false},
+  {id:14,name:"藝妓 水洗",en:"Geisha Washed",origin:"巴拿馬",region:"Americas",process:"水洗",
+   flavor:["茉莉","佛手柑","白桃","絲滑"],notes:{front:["茉莉","玫瑰"],mid:["佛手柑","白桃"],back:["花蜜","絲滑悠長"]},
+   desc:"世界最受推崇的品種。花香與果香的極致展現，一杯讓你相信這個世界有真正美好的事物。",prices:{"200ml":320,"400ml":600},premium:true},
+  {id:15,name:"藍山 No.1",en:"Blue Mountain No.1",origin:"牙買加",region:"Americas",process:"水洗",
+   flavor:["奶油","細緻花香","淡苦","極均衡"],notes:{front:["細緻花香","奶油"],mid:["核桃","淡苦"],back:["極均衡","綿綿不絕"]},
+   desc:"全球最知名咖啡之一，風味極其均衡細緻，幾乎無雜味——有些事情不需要解釋，喝了就懂。",prices:{"200ml":450,"400ml":860},premium:true},
+  {id:16,name:"可納 Extra Fancy",en:"Kona Extra Fancy",origin:"夏威夷",region:"Asia",process:"水洗",
+   flavor:["澳門蛋撻","堅果甜","淡果酸","圓潤"],notes:{front:["奶油蛋撻","蜂蜜"],mid:["夏威夷果","淡花香"],back:["淡果酸","海風清甜"]},
+   desc:"夏威夷火山地帶的稀有豆款，溫潤甜感帶有堅果香，每一口都像是站在海邊看日出。",prices:{"200ml":400,"400ml":760},premium:true},
 ];
 
-const icedDrinks = [
-  { id:"i1", name:"山霧",      en:"Mountain Mist",        tag:"烏龍 × 濃縮",
-    ings:["凍頂烏龍冷萃","耶加雪菲濃縮","喜馬拉雅岩鹽","手鑿冰磚"],
-    notes:{ front:["烏龍青韻","冷萃茶香"], mid:["茉莉","柑橘蜜"], back:["岩鹽回甘","冰霧尾韻"] },
-    desc:"凍頂烏龍冷萃48小時，與耶加雪菲明亮花香相遇，岩鹽帶出兩者最深處的甜。像清晨山中一口冷冽的空氣。", price:185 },
-  { id:"i2", name:"深夜電台",  en:"Late Night Radio",     tag:"通寧 × 烏梅",
-    ings:["Fever-Tree 通寧水","曼特寧濃縮","手調烏梅糖漿","黑糖冰磚","陳皮"],
-    notes:{ front:["烏梅酸香","碳酸爆感"], mid:["深烘焙","黑糖"], back:["陳皮苦甜","深夜餘韻"] },
-    desc:"通寧水的苦澀氣泡遇上曼特寧的大地渾厚，烏梅拉出一條幽暗的酸線，像深夜才懂的那首歌。", price:185 },
-  { id:"i3", name:"仙女下凡",  en:"Fairy Descends",       tag:"荔枝氣泡 × 玫瑰鹽",
-    ings:["荔枝氣泡水","古吉濃縮","新鮮玫瑰糖漿","鹽之花","乾燥玫瑰花瓣"],
-    notes:{ front:["荔枝花香","玫瑰"], mid:["草莓","水蜜桃"], back:["鹽之花","柔甜飄逸"] },
-    desc:"古吉的草莓果醬遇上荔枝氣泡，玫瑰糖漿如一陣粉紅煙霧落下，鹽之花點睛。這杯喝完你會想拍照。", price:195 },
-  { id:"i4", name:"柚見你了",  en:"Nice to Citrus You",   tag:"柚子通寧 × 藝妓",
-    ings:["日本柚子汁","Fever-Tree 地中海通寧","藝妓濃縮","新鮮柚子皮","蜂蜜"],
-    notes:{ front:["柚子清香","氣泡爽感"], mid:["茉莉","佛手柑"], back:["苦甜柑橘","清涼悠長"] },
-    desc:"世界頂級藝妓花香，遇上日本柚子的細膩酸甜，通寧水托起兩者的香氣。每一口都像意外巧遇了對的人。", price:240 },
-  { id:"i5", name:"珊瑚礁",    en:"Coral Reef",           tag:"百香果氣泡 × 海鹽奶蓋",
-    ings:["百香果氣泡水","肯亞AA濃縮","椰糖漿","海鹽起司奶蓋","芒果乾"],
-    notes:{ front:["百香果","熱帶爆香"], mid:["黑醋栗","椰糖"], back:["海鹽奶蓋","熱帶礁岩"] },
-    desc:"肯亞AA的犀利果酸沉入百香果氣泡海中，海鹽起司奶蓋如礁岩上的白色泡沫，每一口都是水下的世界。", price:220 },
-  { id:"i6", name:"茉莉晨光",  en:"Jasmine Dawn",         tag:"茉莉冷泡 × 蜂蜜氣泡",
-    ings:["茉莉花茶冷泡24h","耶加雪菲G1濃縮","野生蜂蜜","氣泡礦泉水","乾燥茉莉"],
-    notes:{ front:["茉莉花香","清晨草露"], mid:["蜂蜜","柑橘花"], back:["輕盈甜感","雲霧尾韻"] },
-    desc:"24小時冷泡茉莉花茶與耶加雪菲同屬花香家族，相遇不是衝突，是共鳴。野生蜂蜜是一個安靜的擁抱。", price:190 },
+const iced = [
+  {id:"i1",name:"山霧",en:"Mountain Mist",tag:"烏龍 × 濃縮",
+   ings:["凍頂烏龍冷萃","耶加雪菲濃縮","喜馬拉雅岩鹽","手鑿冰磚"],
+   notes:{f:["烏龍青韻","冷萃茶香"],m:["茉莉","柑橘蜜"],b:["岩鹽回甘","冰霧尾韻"]},
+   desc:"凍頂烏龍冷萃48小時，與耶加雪菲明亮花香相遇，岩鹽帶出兩者最深處的甜。像清晨山中一口冷冽的空氣。",price:185},
+  {id:"i2",name:"深夜電台",en:"Late Night Radio",tag:"通寧 × 烏梅",
+   ings:["Fever-Tree 通寧水","曼特寧濃縮","手調烏梅糖漿","黑糖冰磚","陳皮"],
+   notes:{f:["烏梅酸香","碳酸爆感"],m:["深烘焙","黑糖"],b:["陳皮苦甜","深夜餘韻"]},
+   desc:"通寧水的苦澀氣泡遇上曼特寧的大地渾厚，烏梅拉出一條幽暗的酸線，像深夜才懂的那首歌。",price:185},
+  {id:"i3",name:"仙女下凡",en:"Fairy Descends",tag:"荔枝氣泡 × 玫瑰鹽",
+   ings:["荔枝氣泡水","古吉濃縮","新鮮玫瑰糖漿","鹽之花","乾燥玫瑰花瓣"],
+   notes:{f:["荔枝花香","玫瑰"],m:["草莓","水蜜桃"],b:["鹽之花","柔甜飄逸"]},
+   desc:"古吉的草莓果醬遇上荔枝氣泡，玫瑰糖漿如一陣粉紅煙霧落下，鹽之花點睛。這杯喝完你會想拍照。",price:195},
+  {id:"i4",name:"柚見你了",en:"Nice to Citrus You",tag:"柚子通寧 × 藝妓",
+   ings:["日本柚子汁","Fever-Tree 地中海通寧","藝妓濃縮","新鮮柚子皮","蜂蜜"],
+   notes:{f:["柚子清香","氣泡爽感"],m:["茉莉","佛手柑"],b:["苦甜柑橘","清涼悠長"]},
+   desc:"世界頂級藝妓花香，遇上日本柚子的細膩酸甜，通寧水托起兩者的香氣。每一口都像意外巧遇了對的人。",price:240},
+  {id:"i5",name:"珊瑚礁",en:"Coral Reef",tag:"百香果氣泡 × 海鹽奶蓋",
+   ings:["百香果氣泡水","肯亞AA濃縮","椰糖漿","海鹽起司奶蓋","芒果乾"],
+   notes:{f:["百香果","熱帶爆香"],m:["黑醋栗","椰糖"],b:["海鹽奶蓋","熱帶礁岩"]},
+   desc:"肯亞AA的犀利果酸沉入百香果氣泡海中，海鹽起司奶蓋如礁岩上的白色泡沫，每一口都是水下的世界。",price:220},
+  {id:"i6",name:"茉莉晨光",en:"Jasmine Dawn",tag:"茉莉冷泡 × 蜂蜜氣泡",
+   ings:["茉莉花茶冷泡24h","耶加雪菲G1濃縮","野生蜂蜜","氣泡礦泉水","乾燥茉莉"],
+   notes:{f:["茉莉花香","清晨草露"],m:["蜂蜜","柑橘花"],b:["輕盈甜感","雲霧尾韻"]},
+   desc:"24小時冷泡茉莉花茶與耶加雪菲同屬花香家族，相遇不是衝突，是共鳴。野生蜂蜜是一個安靜的擁抱。",price:190},
 ];
 
-/* ═══════════════ TODAY HALF PRICE ═══════════════ */
-const doy = (()=>{ const d=new Date(); return Math.floor((d-new Date(d.getFullYear(),0,0))/864e5); })();
-const TODAY_IDS = [coffees[doy % coffees.length].id, coffees[(doy+7) % coffees.length].id];
+/* ── TODAY'S HALF PRICE ─────────────────────── */
+const doy = Math.floor((new Date() - new Date(new Date().getFullYear(),0,0)) / 864e5);
+const TODAY_IDS = [coffees[doy%coffees.length].id, coffees[(doy+7)%coffees.length].id];
 
-(function renderHP(){
+(()=>{
   const c = document.getElementById('hp-cards');
-  TODAY_IDS.forEach(id => {
-    const cf = coffees.find(x=>x.id===id);
-    const sale = Math.floor(cf.prices["200ml"]/2);
-    c.innerHTML += `
-      <div class="hp-card reveal">
-        <div class="hp-origin">${cf.origin}</div>
-        <div class="hp-name">${cf.name}</div>
-        <div class="hp-flavors">${cf.notes.front.join(' · ')} · ${cf.notes.mid[0]}</div>
-        <div class="hp-price-row">
-          <span class="hp-orig">NT$${cf.prices["200ml"]}</span>
-          <span class="hp-sale">NT$${sale}</span>
-          <span class="hp-pill">半價</span>
-        </div>
-        <button class="hp-btn" onclick="addToCart(${id},true)">加入購物車 — 今日半價</button>
-      </div>`;
+  TODAY_IDS.forEach(id=>{
+    const cf=coffees.find(x=>x.id===id), sale=Math.floor(cf.prices["200ml"]/2);
+    c.innerHTML+=`<div class="hp-card reveal">
+      <div class="hp-origin">${cf.origin}</div>
+      <div class="hp-name">${cf.name}</div>
+      <div class="hp-flavor">${cf.notes.front[0]} · ${cf.notes.mid[0]} · ${cf.notes.back[0]}</div>
+      <div class="hp-prices">
+        <span class="hp-orig">NT$${cf.prices["200ml"]}</span>
+        <span class="hp-sale">NT$${sale}</span>
+        <span class="hp-pill">半價</span>
+      </div>
+      <button class="hp-btn" onclick="addToCart(${id},true)">加入購物車 — 今日半價</button>
+    </div>`;
   });
+  observeReveal();
 })();
 
-(function countdown(){
+(()=>{
   function tick(){
-    const now=new Date(), mid=new Date(now); mid.setHours(24,0,0,0);
+    const now=new Date(),mid=new Date(now); mid.setHours(24,0,0,0);
     const s=Math.floor((mid-now)/1000);
     const h=String(Math.floor(s/3600)).padStart(2,'0');
     const m=String(Math.floor((s%3600)/60)).padStart(2,'0');
-    const sec=String(s%60).padStart(2,'0');
+    const sc=String(s%60).padStart(2,'0');
     document.getElementById('hp-timer').innerHTML=
-      `今日半價剩餘：<span>${h}</span> 時 <span>${m}</span> 分 <span>${sec}</span> 秒`;
+      `今日半價剩餘：<span>${h}</span> 時 <span>${m}</span> 分 <span>${sc}</span> 秒`;
   }
   tick(); setInterval(tick,1000);
 })();
 
-/* ═══════════════ ICED DRINKS ════════════════════ */
-(function renderIced(){
-  const g = document.getElementById('iced-grid');
-  icedDrinks.forEach(d=>{
-    const ings = d.ings.map(i=>`<span class="ing-chip">${i}</span>`).join('');
-    const el = document.createElement('div');
-    el.className = 'iced-card reveal';
-    el.innerHTML = `
-      <div class="iced-card-top">
-        <span class="iced-temp">❄ 冰飲</span>
+/* ── ICED ───────────────────────────────────── */
+(()=>{
+  const g=document.getElementById('iced-grid');
+  iced.forEach(d=>{
+    const ings=d.ings.map(i=>`<span class="i-chip">${i}</span>`).join('');
+    const el=document.createElement('div');
+    el.className='iced-card reveal';
+    el.innerHTML=`
+      <div class="iced-cap">
+        <span class="iced-temp-tag">❄ Glacé</span>
         <div class="iced-name">${d.name}</div>
-        <div class="iced-en">${d.en} &nbsp;·&nbsp; ${d.tag}</div>
+        <div class="iced-en-tag">${d.en} · ${d.tag}</div>
         <div class="iced-ings">${ings}</div>
       </div>
       <div class="iced-body">
-        <div class="iced-notes-row">
-          <div class="iced-note front"><span class="note-lbl">前調</span><div class="note-val">${d.notes.front.join('<br>')}</div></div>
-          <div class="iced-note mid"><span class="note-lbl">中調</span><div class="note-val">${d.notes.mid.join('<br>')}</div></div>
-          <div class="iced-note back"><span class="note-lbl">後調</span><div class="note-val">${d.notes.back.join('<br>')}</div></div>
+        <div class="i-notes">
+          <div class="i-note f"><span class="i-nl">前調</span><div class="i-nv">${d.notes.f.join('<br>')}</div></div>
+          <div class="i-note m"><span class="i-nl">中調</span><div class="i-nv">${d.notes.m.join('<br>')}</div></div>
+          <div class="i-note b"><span class="i-nl">後調</span><div class="i-nv">${d.notes.b.join('<br>')}</div></div>
         </div>
         <div class="iced-desc">${d.desc}</div>
       </div>
-      <div class="iced-footer">
+      <div class="iced-foot">
         <span class="iced-price">NT$${d.price}</span>
         <button class="iced-add" onclick="addIcedToCart('${d.id}')">加入購物車</button>
       </div>`;
     g.appendChild(el);
   });
+  observeReveal();
 })();
 
-/* ═══════════════ COFFEE MENU ════════════════════ */
+/* ── MENU ───────────────────────────────────── */
 function renderMenu(filter){
-  const g = document.getElementById('coffee-grid');
-  g.innerHTML = '';
-  coffees.filter(c=>{
-    if(filter==='all') return true;
-    if(filter==='premium') return c.premium;
-    return c.region===filter;
-  }).forEach(c=>{
-    const isHalf = TODAY_IDS.includes(c.id);
-    const wts = Object.keys(c.prices);
-    const flavors = c.flavor.map(f=>`<span class="flavor-chip">${f}</span>`).join('');
-    const opts = wts.map(w=>`<option value="${w}">${w} — NT$${c.prices[w]}</option>`).join('');
-    const el = document.createElement('div');
-    el.className = 'coffee-card reveal';
-    el.innerHTML = `
-      ${isHalf ? '<span class="today-ribbon">今日半價</span>' : ''}
-      <div class="card-cap">
-        <div class="card-origin">${c.origin}</div>
-        <div class="card-name">${c.name}</div>
-        <div class="card-en">${c.en}</div>
-        <span class="card-process">${c.process}</span>
+  const g=document.getElementById('c-grid'); g.innerHTML='';
+  coffees.filter(c=>filter==='all'?true:filter==='premium'?c.premium:c.region===filter).forEach(c=>{
+    const isHP=TODAY_IDS.includes(c.id);
+    const wts=Object.keys(c.prices);
+    const chips=c.flavor.map(f=>`<span class="c-chip">${f}</span>`).join('');
+    const opts=wts.map(w=>`<option value="${w}">${w} — NT$${c.prices[w]}</option>`).join('');
+    const el=document.createElement('div'); el.className='c-card reveal';
+    el.innerHTML=`
+      ${isHP?'<span class="c-today-tag">今日半價</span>':''}
+      <div class="c-cap">
+        <div class="c-orig-label">${c.origin}</div>
+        <div class="c-name">${c.name}</div>
+        <div class="c-en">${c.en}</div>
+        <span class="c-proc">${c.process}</span>
       </div>
-      <div class="card-body">
-        <div class="card-notes">
-          <div class="cn front"><span class="cn-label">前調</span><div class="cn-val">${c.notes.front.join('<br>')}</div></div>
-          <div class="cn mid"><span class="cn-label">中調</span><div class="cn-val">${c.notes.mid.join('<br>')}</div></div>
-          <div class="cn back"><span class="cn-label">後調</span><div class="cn-val">${c.notes.back.join('<br>')}</div></div>
+      <div class="c-body">
+        <div class="c-notes">
+          <div class="cn f"><span class="cn-lbl">前調</span><div class="cn-v">${c.notes.front.join('<br>')}</div></div>
+          <div class="cn m"><span class="cn-lbl">中調</span><div class="cn-v">${c.notes.mid.join('<br>')}</div></div>
+          <div class="cn b"><span class="cn-lbl">後調</span><div class="cn-v">${c.notes.back.join('<br>')}</div></div>
         </div>
-        <div class="flavor-chips">${flavors}</div>
-        <div class="card-desc">${c.desc}</div>
+        <div class="c-chips">${chips}</div>
+        <div class="c-desc">${c.desc}</div>
       </div>
-      <div class="card-foot">
-        <div class="card-price-wrap">
-          ${isHalf ? `<span class="card-price-orig" id="orig-${c.id}">NT$${c.prices[wts[0]]}</span>` : ''}
-          <span class="card-price" id="price-${c.id}">NT$${isHalf?Math.floor(c.prices[wts[0]]/2):c.prices[wts[0]]}</span>
+      <div class="c-foot">
+        <div class="c-price-wrap">
+          ${isHP?`<span class="c-orig-price" id="op-${c.id}">NT$${c.prices[wts[0]]}</span>`:''}
+          <span class="c-price" id="cp-${c.id}">NT$${isHP?Math.floor(c.prices[wts[0]]/2):c.prices[wts[0]]}</span>
         </div>
-        <div class="card-controls">
-          <select class="weight-sel" id="sel-${c.id}" onchange="updatePrice(${c.id},${isHalf})">${opts}</select>
-          <button class="add-btn${isHalf?' half-price':''}" onclick="addToCart(${c.id},${isHalf})">${isHalf?'半價加入':'加入'}</button>
+        <div class="c-controls">
+          <select class="c-sel" id="cs-${c.id}" onchange="updPrice(${c.id},${isHP})">${opts}</select>
+          <button class="c-add${isHP?' hp':''}" onclick="addToCart(${c.id},${isHP})">${isHP?'半價加入':'加入'}</button>
         </div>
       </div>`;
     g.appendChild(el);
   });
   observeReveal();
 }
-
-function filterMenu(f, btn){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderMenu(f);
+function filterMenu(f,btn){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on'); renderMenu(f);
 }
 renderMenu('all');
 
-function updatePrice(id, isHalf){
-  const c = coffees.find(x=>x.id===id);
-  const w = document.getElementById('sel-'+id).value;
-  const p = c.prices[w];
-  document.getElementById('price-'+id).textContent = `NT$${isHalf?Math.floor(p/2):p}`;
-  const o = document.getElementById('orig-'+id);
-  if(o) o.textContent = `NT$${p}`;
+function updPrice(id,isHP){
+  const c=coffees.find(x=>x.id===id), w=document.getElementById('cs-'+id).value, p=c.prices[w];
+  document.getElementById('cp-'+id).textContent=`NT$${isHP?Math.floor(p/2):p}`;
+  const o=document.getElementById('op-'+id); if(o) o.textContent=`NT$${p}`;
 }
 
-/* ═══════════════ CART ═══════════════════════════ */
-let cart = [];
-
-function addToCart(id, isHalf){
-  const c  = coffees.find(x=>x.id===id);
-  const sel = document.getElementById('sel-'+id);
-  const w  = sel ? sel.value : '200ml';
-  const p  = isHalf ? Math.floor(c.prices[w]/2) : c.prices[w];
-  const key = `${id}_${w}_${isHalf}`;
-  const ex  = cart.find(i=>i.key===key);
-  ex ? ex.qty++ : cart.push({key,id,name:c.name,weight:w,price:p,isHalf,qty:1});
-  renderCart(); showToast(`✓ ${c.name}${isHalf?' — 今日半價':''} 已加入`);
+/* ── CART ───────────────────────────────────── */
+let cart=[];
+function addToCart(id,isHP){
+  const c=coffees.find(x=>x.id===id);
+  const sel=document.getElementById('cs-'+id);
+  const w=sel?sel.value:'200ml', p=isHP?Math.floor(c.prices[w]/2):c.prices[w];
+  const key=`${id}_${w}_${isHP}`;
+  const ex=cart.find(i=>i.key===key);
+  ex?ex.qty++:cart.push({key,id,name:c.name,weight:w,price:p,isHP,qty:1});
+  renderCart(); toast(`✓ ${c.name}${isHP?' — 今日半價':''}`);
 }
 function addIcedToCart(id){
-  const d = icedDrinks.find(x=>x.id===id);
-  const key = `iced_${id}`;
-  const ex  = cart.find(i=>i.key===key);
-  ex ? ex.qty++ : cart.push({key,id,name:d.name,weight:'冰飲特調',price:d.price,isHalf:false,qty:1});
-  renderCart(); showToast(`✓ ${d.name}（${d.en}）已加入`);
+  const d=iced.find(x=>x.id===id), key=`iced_${id}`;
+  const ex=cart.find(i=>i.key===key);
+  ex?ex.qty++:cart.push({key,id,name:d.name,weight:'冰飲特調',price:d.price,isHP:false,qty:1});
+  renderCart(); toast(`✓ ${d.name} · ${d.en}`);
 }
-function changeQty(key,d){ const i=cart.find(x=>x.key===key); if(!i) return; i.qty+=d; if(i.qty<=0) cart=cart.filter(x=>x.key!==key); renderCart(); }
-function removeItem(key){ cart=cart.filter(i=>i.key!==key); renderCart(); }
+function chgQty(key,d){const i=cart.find(x=>x.key===key);if(!i)return;i.qty+=d;if(i.qty<=0)cart=cart.filter(x=>x.key!==key);renderCart();}
+function rmItem(key){cart=cart.filter(i=>i.key!==key);renderCart();}
 
 function renderCart(){
-  const wrap  = document.getElementById('cart-items');
-  const empty = document.getElementById('cart-empty');
-  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const count = cart.reduce((s,i)=>s+i.qty,0);
-  document.getElementById('cart-total').textContent = `NT$${total}`;
-  document.getElementById('cart-count').textContent = count;
-  [...wrap.querySelectorAll('.c-item')].forEach(el=>el.remove());
-  empty.style.display = cart.length ? 'none' : 'block';
+  const wrap=document.getElementById('cart-items'), empty=document.getElementById('cart-empty');
+  const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const count=cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cart-total').textContent=`NT$${total}`;
+  document.getElementById('cart-count').textContent=count;
+  [...wrap.querySelectorAll('.ci')].forEach(el=>el.remove());
+  empty.style.display=cart.length?'none':'block';
   cart.forEach(item=>{
-    const div = document.createElement('div');
-    div.className = 'c-item';
-    div.innerHTML = `
-      <div class="c-info">
-        <div class="c-name">${item.name}${item.isHalf?'<span class="c-half">半價</span>':''}</div>
-        <div class="c-weight">${item.weight}</div>
-        <div class="c-qty">
-          <button class="qty-btn" onclick="changeQty('${item.key}',-1)">−</button>
-          <span style="font-size:.88rem;min-width:18px;text-align:center">${item.qty}</span>
-          <button class="qty-btn" onclick="changeQty('${item.key}',1)">+</button>
-        </div>
-      </div>
-      <div class="c-right">
-        <span class="c-price">NT$${item.price*item.qty}</span>
-        <button class="c-remove" onclick="removeItem('${item.key}')">✕</button>
+    const div=document.createElement('div'); div.className='ci';
+    div.innerHTML=`<div class="ci-info">
+      <div class="ci-name">${item.name}${item.isHP?'<span class="ci-half">半價</span>':''}</div>
+      <div class="ci-w">${item.weight}</div>
+      <div class="ci-qty">
+        <button class="qb" onclick="chgQty('${item.key}',-1)">−</button>
+        <span style="font-size:.84rem;min-width:18px;text-align:center">${item.qty}</span>
+        <button class="qb" onclick="chgQty('${item.key}',1)">+</button>
+      </div></div>
+      <div class="ci-right">
+        <span class="ci-price">NT$${item.price*item.qty}</span>
+        <button class="ci-rm" onclick="rmItem('${item.key}')">✕</button>
       </div>`;
-    wrap.insertBefore(div, empty);
+    wrap.insertBefore(div,empty);
   });
 }
 
-function openCart(){ document.getElementById('cart-panel').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
-function closeCart(){ document.getElementById('cart-panel').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+function openCart(){document.getElementById('cart-panel').classList.add('open');document.getElementById('overlay').classList.add('open');}
+function closeCart(){document.getElementById('cart-panel').classList.remove('open');document.getElementById('overlay').classList.remove('open');}
 
 function submitOrder(e){
   e.preventDefault();
-  const err = document.getElementById('form-err');
-  err.style.display = 'none';
-  if(!cart.length){ err.textContent='購物車是空的，請先選擇咖啡！'; err.style.display='block'; return; }
-  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  if(total<150){ err.textContent=`合計 NT$${total}，最低消費 NT$150`; err.style.display='block'; return; }
-  const name=document.getElementById('f-name').value.trim();
-  const dist=document.getElementById('f-district').value;
-  const addr=document.getElementById('f-addr').value.trim();
-  const no='MC'+Date.now().toString().slice(-6);
-  const hasHalf=cart.some(i=>i.isHalf);
+  const err=document.getElementById('oerr'); err.style.display='none';
+  if(!cart.length){err.textContent='購物車是空的';err.style.display='block';return;}
+  const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  if(total<150){err.textContent=`合計 NT$${total}，最低消費 NT$150`;err.style.display='block';return;}
+  const name=document.getElementById('fn').value.trim();
+  const dist=document.getElementById('fd').value;
+  const addr=document.getElementById('fa').value.trim();
+  const no='LC'+Date.now().toString().slice(-6);
+  const hasHP=cart.some(i=>i.isHP);
   document.getElementById('modal-msg').innerHTML=
     `訂單編號：<strong>${no}</strong><br>${name} 您好，咖啡師正在為您手沖<br>`+
     `30–50 分鐘後送達 台北市${dist}${addr}。<br><br>`+
-    `合計：<strong>NT$${total}</strong>${hasHalf?' (含半價優惠)':''}<br>`+
-    `<span style="font-size:.78rem;color:#b09070">不心悸，只對生命的悸動</span>`;
+    `合計：<strong>NT$${total}</strong>${hasHP?' · 含今日半價':''}<br>`+
+    `<span style="font-size:.76rem;color:#8a7050;font-style:italic">不心悸，只對生命的悸動</span>`;
   document.getElementById('modal-bg').classList.add('open');
-  cart=[]; renderCart();
-  document.getElementById('order-form').reset();
-  closeCart();
+  cart=[]; renderCart(); document.getElementById('oform').reset(); closeCart();
 }
-function closeModal(){ document.getElementById('modal-bg').classList.remove('open'); }
-function buyPass(n,p){ showToast(`✓ ${n} NT$${p.toLocaleString()}/月 申請已送出`); setTimeout(()=>alert(`感謝訂閱《${n}》！\n我們將在 24 小時內簡訊聯繫您完成開通。\n\n不心悸，只對生命的悸動 ☕`),300); }
+function closeModal(){document.getElementById('modal-bg').classList.remove('open');}
+function buyPass(n,p){toast(`✓ ${n} NT$${p.toLocaleString()}/月 申請已送出`);setTimeout(()=>alert(`感謝訂閱《${n}》！\n我們將在 24 小時內簡訊聯繫您完成開通。\n\n不心悸，只對生命的悸動 ☕`),300);}
 
-/* ═══════════════ TOAST ══════════════════════════ */
+/* ── TOAST ───────────────────────────────────── */
 let _tt;
-function showToast(msg){
+function toast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg; t.classList.add('show');
-  clearTimeout(_tt); _tt=setTimeout(()=>t.classList.remove('show'),2500);
+  clearTimeout(_tt); _tt=setTimeout(()=>t.classList.remove('show'),2600);
 }
 
-/* ═══════════════ SCROLL REVEAL ══════════════════ */
+/* ── NAV SCROLL ─────────────────────────────── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY>60);
+},{ passive:true });
+
+/* ── REVEAL ─────────────────────────────────── */
 function observeReveal(){
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
-  },{ threshold:.12 });
-  document.querySelectorAll('.reveal:not(.visible)').forEach(el=>io.observe(el));
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+  },{threshold:.1});
+  document.querySelectorAll('.reveal:not(.visible),.reveal-left:not(.visible),.reveal-right:not(.visible)')
+    .forEach(el=>io.observe(el));
 }
 observeReveal();
 </script>
